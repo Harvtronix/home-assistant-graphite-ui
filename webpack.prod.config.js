@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 ////////// Regular expression definitions //////////
 const regexJsAndJsx = /\.jsx?$/
-// const regexCss = /\.css$/
-// const regexCssModule = /\.module\.css$/
+const regexCss = /\.s?css$/
+const regexCssModule = /\.m\.s?css$/
 // const regexImage = /\.(png|jpe?g|gif)$/
 ////////////////////////////////////////////////////
 
@@ -25,6 +25,51 @@ module.exports = {
                 options: {
                     emitError: true
                 }
+            },
+            {
+                test: regexCssModule,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 1,
+                            localIdentName: "[name]__[local]__[hash:base64:5]",
+                            modules: true
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            includePaths: [
+                                path.resolve(__dirname, "node_modules")
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                test: regexCss,
+                exclude: [
+                    regexCssModule
+                ],
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            includePaths: [
+                                path.resolve(__dirname, "node_modules")
+                            ]
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -33,12 +78,18 @@ module.exports = {
         splitChunks: {
             chunks: "all",
             cacheGroups: {
+                carbon: {
+                    enforce: true,
+                    test: /[\\/\\]node_modules[\\/\\]carbon.*/,
+                    name() {
+                        return "carbon"
+                    }
+                },
                 vendors: {
                     enforce: true,
                     test: /[\\/\\]node_modules[\\/\\]/,
                     name(module) {
                         const packageName = module.context.match(/node_modules[/\\](.*)$/)[1]
-                        console.log(packageName.replace(/[/\\]/g, "~"))
                         return packageName.replace(/[/\\]/g, "~")
                     }
                 }

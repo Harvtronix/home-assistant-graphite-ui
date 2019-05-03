@@ -37,11 +37,20 @@ module.exports = {
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
+        ],
+        "react/jsx-indent": [
+            "error",
+            4
         ],
         "semi": [
             "error",
             "never"
         ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }

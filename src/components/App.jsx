@@ -1,9 +1,9 @@
-import React from "react"
+import React from 'react'
+
+import HomeLayout from './HomeLayout'
 
 const App = () => (
-    <div>
-        Hello testing 12345678
-    </div>
+    <HomeLayout />
 )
 
 export default App

@@ -1,0 +1,26 @@
+//$icon-margin-vertical: 0.em;
+$icon-margin-horizontal: 1em;
+$icon-padding-horizontal: 1em;
+$icon-padding-vertical: 0.5em;
+
+.bottom-bar {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    div {
+        margin-top: 0;
+        margin-right: $icon-margin-horizontal;
+        margin-bottom: 0;
+        margin-left: $icon-margin-horizontal;
+        padding-top: $icon-padding-vertical;
+        padding-right: $icon-padding-horizontal;
+        padding-bottom: $icon-padding-vertical;
+        padding-left: $icon-padding-horizontal;
+    }
+}
