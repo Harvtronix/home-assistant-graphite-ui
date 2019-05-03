@@ -1,0 +1,24 @@
+@import 'carbon-components/scss/globals/scss/theme';
+
+$icon-margin-horizontal: 1rem;
+$icon-padding-horizontal: 1rem;
+$icon-padding-vertical: 0.5rem;
+
+.top-bar {
+    @include type-style(productive-heading-03);
+    display: flex;
+    color: $text-04;
+    background-color: $ui-05;
+    font-weight: carbon--font-weight(light);
+
+    div {
+        margin-top: 0;
+        margin-right: $icon-margin-horizontal;
+        margin-bottom: 0;
+        margin-left: $icon-margin-horizontal;
+        padding-top: $icon-padding-vertical;
+        padding-right: $icon-padding-horizontal;
+        padding-bottom: $icon-padding-vertical;
+        padding-left: $icon-padding-horizontal;
+    }
+}

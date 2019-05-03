@@ -1,7 +1,8 @@
-//$icon-margin-vertical: 0.em;
-$icon-margin-horizontal: 1em;
-$icon-padding-horizontal: 1em;
-$icon-padding-vertical: 0.5em;
+@import 'carbon-components/scss/globals/scss/theme';
+
+$icon-margin: 0.5rem;
+$icon-margin-horizontal: 1rem;
+$icon-padding: 0.5rem;
 
 .bottom-bar {
     display: flex;
@@ -12,15 +13,18 @@ $icon-padding-vertical: 0.5em;
     bottom: 0;
     left: 0;
     right: 0;
+    background-color: $ui-02;
 
     div {
-        margin-top: 0;
-        margin-right: $icon-margin-horizontal;
-        margin-bottom: 0;
+        margin: $icon-margin;
         margin-left: $icon-margin-horizontal;
-        padding-top: $icon-padding-vertical;
-        padding-right: $icon-padding-horizontal;
-        padding-bottom: $icon-padding-vertical;
-        padding-left: $icon-padding-horizontal;
+        margin-right: $icon-margin-horizontal;
+        padding: $icon-padding;
+        cursor: pointer;
+
+        &:hover {
+            border-radius: 8rem;
+            background-color: $ui-01;
+        }
     }
 }
