@@ -1,8 +1,6 @@
 import produce from 'immer'
 
 const onToggleDevicePowerState = (state, payload) => {
-    console.log(state)
-    console.log(payload)
     let newPowerState = ''
 
     if (state[payload.deviceId].powerState == 'ON') {
@@ -12,16 +10,30 @@ const onToggleDevicePowerState = (state, payload) => {
         newPowerState = 'ON'
     }
 
-    return produce(state, (draftState) => {
-        draftState[payload.deviceId].powerState = newPowerState
-    })
+    state[payload.deviceId].powerState = newPowerState
+
+    return state
 }
 
 const reducer = (state, {type, payload}) => {
-    switch (type) {
-    case 'TOGGLE_DEVICE_POWER_STATE':
-        return onToggleDevicePowerState(state, payload)
-    }
+    console.log(
+        '<> reducer (' + 'payload: ' + JSON.stringify(payload) + ')'
+    )
+
+    return produce(
+        state,
+        (draft) => {
+            switch (type) {
+            case 'TOGGLE_DEVICE_POWER_STATE':
+                return onToggleDevicePowerState(draft, payload)
+            }
+        },
+        (patches) => {
+            patches.forEach((patch) => {
+                console.log(patch)
+            })
+        }
+    )
 }
 
 export default reducer
