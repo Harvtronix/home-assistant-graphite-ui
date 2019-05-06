@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { Tile } from 'carbon-components-react'
-
 const HomeIcon = require('@carbon/icons-react/lib/Home/32')
 
 import styles from './BottomBar.m.scss'

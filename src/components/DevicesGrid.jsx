@@ -1,19 +1,36 @@
-import React from 'react'
+import React, {  useContext } from 'react'
+import PropTypes from 'prop-types'
 
+import DeviceContext from '../modules/DeviceContext'
 import styles from './DevicesGrid.m.scss'
-import DeviceTile from './DeviceTile'
+import DeviceTile from './DeviceTile/DeviceTile'
 
-const DevicesGrid = () => {
+const DevicesGrid = ({dispatch}) => {
+
+    const deviceDb = useContext(DeviceContext)
+
+    const getDeviceTiles = () => {
+        return Object.entries(deviceDb).map(([deviceId, deviceProps]) => {
+            return (
+                <DeviceTile
+                    key={'device_tile' + deviceId}
+                    {...deviceProps}
+                    dispatch={dispatch}
+                />
+            )
+        })
+    }
+
     return (
-        <div className="bx--grid">
-            <div className="bx--row">
-                <DeviceTile />
-                <DeviceTile />
-                <DeviceTile />
-                <DeviceTile />
-            </div>
+        <div className={styles['grid']}>
+            {getDeviceTiles()}
         </div>
     )
+
+}
+
+DevicesGrid.propTypes = {
+    dispatch: PropTypes.func.isRequired
 }
 
 export default DevicesGrid

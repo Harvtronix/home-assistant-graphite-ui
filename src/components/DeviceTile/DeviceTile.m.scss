@@ -1,0 +1,48 @@
+@import 'carbon-components/scss/globals/scss/theme';
+
+$tile-padding: 0.5rem;
+$tile-margin: 0.5rem;
+$tile-size: 10rem;
+
+.deviceTileContainer {
+    width: $tile-size;
+    height: $tile-size;
+
+    position: relative;
+
+    .deviceTile {
+        position: absolute;
+
+        top: $tile-margin;
+        right: $tile-margin;
+        bottom: $tile-margin;
+        left: $tile-margin;
+
+        padding: $tile-padding;
+
+        background-color: $ui-02;
+
+        .title {
+            font-size: 0.8rem;
+            line-height: 1rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .menu {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    .off {
+        color: $inverse-01;
+        fill: $inverse-01;
+        background-color: $inverse-02;
+    }
+    // .on {
+
+    // }
+}

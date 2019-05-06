@@ -1,0 +1,18 @@
+// @import 'carbon-components/scss/globals/scss/theme';
+
+.powerIndicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .icon {
+        width: 3rem;
+        height: 3rem;
+    }
+}

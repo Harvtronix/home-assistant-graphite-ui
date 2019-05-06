@@ -6,7 +6,7 @@ const TopBar = () => {
     return (
         <div className={styles['top-bar']}>
             <div>
-                Home Assistant UI
+                H.A.U.I.
             </div>
         </div>
     )

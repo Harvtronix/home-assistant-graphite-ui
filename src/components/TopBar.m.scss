@@ -1,8 +1,7 @@
 @import 'carbon-components/scss/globals/scss/theme';
 
-$icon-margin-horizontal: 1rem;
-$icon-padding-horizontal: 1rem;
-$icon-padding-vertical: 0.5rem;
+$margin: 0.5rem;
+$padding: 0.5rem;
 
 .top-bar {
     @include type-style(productive-heading-03);
@@ -13,12 +12,9 @@ $icon-padding-vertical: 0.5rem;
 
     div {
         margin-top: 0;
-        margin-right: $icon-margin-horizontal;
+        margin-right: $margin;
         margin-bottom: 0;
-        margin-left: $icon-margin-horizontal;
-        padding-top: $icon-padding-vertical;
-        padding-right: $icon-padding-horizontal;
-        padding-bottom: $icon-padding-vertical;
-        padding-left: $icon-padding-horizontal;
+        margin-left: $margin;
+        padding: $padding;
     }
 }
