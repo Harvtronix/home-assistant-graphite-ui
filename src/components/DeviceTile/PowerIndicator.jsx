@@ -9,10 +9,10 @@ import styles from './PowerIndicator.m.scss'
 const PowerIndicator = ({dispatch, ...props}) => {
 
     const getIcon = () => {
-        switch (props.powerState) {
-        case 'ON':
+        switch (props.state) {
+        case 'on':
             return <SunIcon className={styles.icon} />
-        case 'OFF':
+        case 'off':
             return <MoonIcon className={styles.icon} />
         }
     }
@@ -23,7 +23,7 @@ const PowerIndicator = ({dispatch, ...props}) => {
             onClick={() => dispatch({
                 type: 'TOGGLE_DEVICE_POWER_STATE',
                 payload: {
-                    deviceId: props.deviceId
+                    entity_id: props.entity_id
                 }
             })}
         >
@@ -33,9 +33,9 @@ const PowerIndicator = ({dispatch, ...props}) => {
 }
 
 PowerIndicator.propTypes = {
-    deviceId: PropTypes.string.isRequired,
+    entity_id: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
-    powerState: PropTypes.string.isRequired
+    state: PropTypes.string.isRequired
 }
 
 export default PowerIndicator

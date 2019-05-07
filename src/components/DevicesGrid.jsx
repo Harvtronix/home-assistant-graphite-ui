@@ -10,11 +10,11 @@ const DevicesGrid = ({dispatch}) => {
     const deviceDb = useContext(DeviceContext)
 
     const getDeviceTiles = () => {
-        return Object.entries(deviceDb).map(([deviceId, deviceProps]) => {
+        return deviceDb.map((device) => {
             return (
                 <DeviceTile
-                    key={'device_tile' + deviceId}
-                    {...deviceProps}
+                    key={'device_tile' + device.entity_id}
+                    {...device}
                     dispatch={dispatch}
                 />
             )

@@ -1,5 +1,5 @@
-const path = require("path")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 ////////// Regular expression definitions //////////
 const regexJsAndJsx = /\.jsx?$/
@@ -9,18 +9,18 @@ const regexCssModule = /\.m\.s?css$/
 ////////////////////////////////////////////////////
 
 module.exports = {
-    mode: "production",
-    entry: "./src/index.jsx",
+    mode: 'production',
+    entry: './src/index.jsx',
     module: {
         rules: [
             {
                 test: regexJsAndJsx,
-                loader: "babel-loader",
+                loader: 'babel-loader',
                 exclude: /node_modules/
             },
             {
                 test: regexJsAndJsx,
-                loader: "eslint-loader",
+                loader: 'eslint-loader',
                 exclude: /node_modules/,
                 options: {
                     emitError: true
@@ -29,20 +29,20 @@ module.exports = {
             {
                 test: regexCssModule,
                 use: [
-                    "style-loader",
+                    'style-loader',
                     {
-                        loader: "css-loader",
+                        loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            localIdentName: "[name]__[local]__[hash:base64:5]",
+                            localIdentName: '[name]__[local]__[hash:base64:5]',
                             modules: true
                         }
                     },
                     {
-                        loader: "sass-loader",
+                        loader: 'sass-loader',
                         options: {
                             includePaths: [
-                                path.resolve(__dirname, "node_modules")
+                                path.resolve(__dirname, 'node_modules')
                             ]
                         }
                     }
@@ -54,18 +54,18 @@ module.exports = {
                     regexCssModule
                 ],
                 use: [
-                    "style-loader",
+                    'style-loader',
                     {
-                        loader: "css-loader",
+                        loader: 'css-loader',
                         options: {
                             importLoaders: 1
                         }
                     },
                     {
-                        loader: "sass-loader",
+                        loader: 'sass-loader',
                         options: {
                             includePaths: [
-                                path.resolve(__dirname, "node_modules")
+                                path.resolve(__dirname, 'node_modules')
                             ]
                         }
                     }
@@ -74,15 +74,15 @@ module.exports = {
         ]
     },
     optimization: {
-        runtimeChunk: "single",
+        runtimeChunk: 'single',
         splitChunks: {
-            chunks: "all",
+            chunks: 'all',
             cacheGroups: {
                 carbon: {
                     enforce: true,
                     test: /[\\/\\]node_modules[\\/\\]carbon.*/,
                     name() {
-                        return "carbon"
+                        return 'carbon'
                     }
                 },
                 vendors: {
@@ -90,22 +90,22 @@ module.exports = {
                     test: /[\\/\\]node_modules[\\/\\]/,
                     name(module) {
                         const packageName = module.context.match(/node_modules[/\\](.*)$/)[1]
-                        return packageName.replace(/[/\\]/g, "~")
+                        return packageName.replace(/[/\\]/g, '~')
                     }
                 }
             }
         }
     },
     output: {
-        filename: "[name].chunk.js",
-        path: path.resolve(__dirname, "dist")
+        filename: '[name].chunk.js',
+        path: path.resolve(__dirname, 'dist')
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "src/index.html"
+            template: 'src/index.html'
         })
     ],
     resolve: {
-        extensions: [".js", ".jsx"]
+        extensions: ['.js', '.jsx']
     }
 }

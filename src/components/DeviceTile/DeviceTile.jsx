@@ -6,13 +6,13 @@ import { OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
 import styles from './DeviceTile.m.scss'
 import PowerIndicator from './PowerIndicator'
 
-const DeviceTile = ({...props}) => {
+const DeviceTile = ({dispatch, ...props}) => {
 
     const getDeviceTileClassName = () => {
         return classNames({
             [styles.deviceTile]: true,
-            [styles.on]: props.powerState == 'ON',
-            [styles.off]: props.powerState == 'OFF',
+            [styles.on]: props.state == 'on',
+            [styles.off]: props.state == 'off',
         })
     }
 
@@ -29,11 +29,13 @@ const DeviceTile = ({...props}) => {
         <div className={styles.deviceTileContainer}>
             <div className={getDeviceTileClassName()}>
                 <div className={styles.title}>
-                    {props.deviceName}
+                    {props.attributes.friendly_name}
                 </div>
 
                 <PowerIndicator
-                    {...props}
+                    dispatch={dispatch}
+                    state={props.state}
+                    entity_id={props.entity_id}
                 />
 
                 {getOverflowMenu()}
@@ -44,8 +46,10 @@ const DeviceTile = ({...props}) => {
 }
 
 DeviceTile.propTypes = {
-    deviceName: PropTypes.string.isRequired,
-    powerState: PropTypes.string.isRequired
+    attributes: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    entity_id: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired
 }
 
 export default DeviceTile
