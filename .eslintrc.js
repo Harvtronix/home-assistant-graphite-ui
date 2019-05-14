@@ -21,6 +21,7 @@ module.exports = {
     },
     "plugins": [
         "react",
+        "react-hooks",
         "jsdoc"
     ],
     "rules": {
@@ -44,6 +45,8 @@ module.exports = {
             "error",
             4
         ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "semi": [
             "error",
             "never"
