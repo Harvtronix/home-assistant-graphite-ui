@@ -33,6 +33,10 @@ module.exports = {
             "error",
             "unix"
         ],
+        "max-len": [
+            "warn",
+            { "code": 100 }
+        ],
         "no-console": "off",
         "no-unused-vars": [
             "warn"

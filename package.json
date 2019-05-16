@@ -1,5 +1,5 @@
 {
-  "name": "home-assistant-ui",
+  "name": "home-assistant-graphite-ui",
   "version": "1.0.0",
   "description": "A React-based next-gen user interface for Home Assistant that strives for simplicity over all else",
   "main": "index.js",

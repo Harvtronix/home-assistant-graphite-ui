@@ -2,7 +2,6 @@ import produce from 'immer'
 
 const onSetDevices = (state, payload) => {
     state = payload
-
     return state
 }
 

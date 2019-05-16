@@ -11,10 +11,10 @@ const App = () => {
     const [deviceDb, dispatch] = useReducer(reducer, [])
 
     useEffect(() => {
-        Api.listDevices((devices) => {
+        Api.refreshStates().then(() => {
             dispatch({
                 type: 'SET_DEVICES',
-                payload: devices
+                payload: Api.getDevices()
             })
         })
     }, [])

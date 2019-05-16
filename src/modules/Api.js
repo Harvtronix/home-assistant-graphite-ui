@@ -10,40 +10,100 @@ const axios = axiosFactory.create({
     }
 })
 
-const includedDeviceTypes = [
-    'light',
-    'lock',
-    'switch',
-]
+const entityTypes = Object.freeze({
+    AUTOMATION: 'automation.graphite',
+    LIGHT: 'light',
+    LOCK: 'lock',
+    ROUTINE: 'script.graphite',
+    SWITCH: 'switch'
+})
+
+let lastStates = []
 
 /**
- * Lists devices from the server and then calls callback passing the result set as an argument.
+ * Lists devices of particular types from the last server data. The types are values from the
+ * `entityTypes` object.
  *
- * @param {Function} callback - The callback to be executed upon success.
+ * @param {Array} typesToInclude - List of types to include in the result.
+ * @returns {Array} A list of devices.
  */
-const listDevices = (callback) => {
-    axios.get('/api/states')
-        .then((response) => {
+const getEntitiesByType = (typesToInclude) => {
+    // Return only devices that match an included type from typesToInclude
+    const devices = lastStates.filter((entity) => (
+        typesToInclude.findIndex((type) => (
+            entity.entity_id.split('.')[0] == type
+        )) >= 0
+    ))
 
-            // Return only devices that match an included type from includedDeviceTypes
-            const devices = response.data.filter((entity) => (
-                includedDeviceTypes.findIndex((type) => (
-                    entity.entity_id.split('.')[0] == type
-                )) >= 0
-            ))
+    devices.sort((a, b) => {
+        return a.attributes.friendly_name.localeCompare(b.attributes.friendly_name)
+    })
 
-            devices.sort((a, b) => {
-                return a.attributes.friendly_name.localeCompare(b.attributes.friendly_name)
-            })
+    console.log('getEntitiesByType(' + typesToInclude + ') returning:')
+    console.log(devices)
 
-            console.log('listDevices returning:')
-            console.log(devices)
+    return devices
+}
 
-            if (callback) {
-                callback(devices)
+/**
+ * Lists devices from the last server data.
+ *
+ * @returns {Array} A list of device entities.
+ */
+const getDevices = () => {
+    return getEntitiesByType([
+        entityTypes.LIGHT,
+        entityTypes.LOCK,
+        entityTypes.SWITCH,
+    ])
+}
+
+/**
+ * @returns {Promise} - A promise that resolves after the latest states have been obtained from the
+ * server.
+ */
+const refreshStates = () => {
+    return new Promise((resolve, reject) => {
+        // Grab data from the server and resolve (or reject) the promise
+        axios.get('/api/states').then(
+            (response) => {
+                lastStates = response.data
+                console.log('refreshStates obtained:')
+                console.log(lastStates)
+                resolve()
+            },
+            (error) => {
+                reject(error)
             }
-        })
+        )
+
+        //script/script.1535436271565
+        // axios.get('/api/services').then((response) => {
+        //     console.log('yo yo')
+        //     console.log(response.data)
+        // })
+    })
 }
+
 export default {
-    listDevices
+    entityTypes,
+    getDevices,
+    refreshStates
 }
+
+/*
+what services are available?
+    /api/services
+    ex. domain: script
+
+details of a script? (also how to update??)
+    GET/POST /api/config/script/config/{script-id}
+    seems like you can make up your own script-id for a new one, though they
+    are using unix timestamps for theirs
+
+what scripts are available?
+    /states
+    entity_id starts with script.
+    also: /api/services and look under domain:script for list of "services"
+
+*/
