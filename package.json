@@ -7,7 +7,7 @@
     "build": "rimraf dist && webpack --config webpack.prod.config.js",
     "db": "json-server dev/db.js --routes dev/routes.json --id entity_id",
     "dev": "npm-run-all --parallel db start",
-    "start": "webpack-dev-server --config webpack.dev.config.js --open",
+    "start": "webpack-dev-server --config webpack.dev.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Harvtronix",

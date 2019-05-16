@@ -3,6 +3,7 @@
 $tile-padding: 0.5rem;
 $tile-margin: 0.5rem;
 $tile-size: 10rem;
+$font-size: 0.8rem;
 
 .deviceTileContainer {
     width: $tile-size;
@@ -20,11 +21,12 @@ $tile-size: 10rem;
 
         padding: $tile-padding;
 
+        font-size: $font-size;
+        line-height: 1rem;
+
         background-color: $ui-02;
 
         .title {
-            font-size: 0.8rem;
-            line-height: 1rem;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -41,6 +43,9 @@ $tile-size: 10rem;
         color: $inverse-01;
         fill: $inverse-01;
         background-color: $inverse-02;
+    }
+    .warn {
+        background-color: $support-03;
     }
     // .on {
 

@@ -1,0 +1,18 @@
+.brightnessIndicator {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 0.35rem;
+    left: 0.5rem;
+
+    .icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .brightnessValue {
+        margin-left: 0.25rem;
+    }
+}

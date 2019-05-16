@@ -12,7 +12,8 @@ const axios = axiosFactory.create({
 
 const includedDeviceTypes = [
     'light',
-    'switch'
+    'lock',
+    'switch',
 ]
 
 /**

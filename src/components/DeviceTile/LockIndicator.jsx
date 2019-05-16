@@ -1,19 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SunIcon from '@carbon/icons-react/es/light/32'
-import MoonIcon from '@carbon/icons-react/es/asleep/32'
+import LockedIcon from '@carbon/icons-react/es/locked/32'
+import UnlockedIcon from '@carbon/icons-react/es/unlocked/32'
 
 import styles from './DeviceIndicator.m.scss'
 
-const PowerIndicator = ({dispatch, ...props}) => {
+const LockIndicator = ({dispatch, ...props}) => {
 
     const getIcon = () => {
         switch (props.state) {
-        case 'on':
-            return <SunIcon className={styles.icon} />
-        case 'off':
-            return <MoonIcon className={styles.icon} />
+        case 'locked':
+            return <LockedIcon className={styles.icon} />
+        case 'unlocked':
+            return <UnlockedIcon className={styles.icon} />
         }
     }
 
@@ -23,7 +23,7 @@ const PowerIndicator = ({dispatch, ...props}) => {
                 aria-label={'toggle ' + props.friendly_name + ' state'}
                 className={styles.button}
                 onClick={() => dispatch({
-                    type: 'TOGGLE_DEVICE_POWER_STATE',
+                    type: 'TOGGLE_DEVICE_LOCK_STATE',
                     payload: {
                         entity_id: props.entity_id
                     }
@@ -35,11 +35,11 @@ const PowerIndicator = ({dispatch, ...props}) => {
     )
 }
 
-PowerIndicator.propTypes = {
+LockIndicator.propTypes = {
     entity_id: PropTypes.string.isRequired,
     friendly_name: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     state: PropTypes.string.isRequired
 }
 
-export default PowerIndicator
+export default LockIndicator
