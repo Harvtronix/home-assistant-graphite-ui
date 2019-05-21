@@ -12,10 +12,14 @@ const App = () => {
 
     useEffect(() => {
         Api.refreshStates().then(() => {
+            // Dispatch the request to get initial data
             dispatch({
                 type: 'SET_DEVICES',
                 payload: Api.getDevices()
             })
+
+            // Open the websocket and provide it with the dispatch method
+            Api.openWebsocket(dispatch)
         })
     }, [])
 

@@ -6,8 +6,12 @@ module.exports = {
     devServer: {
         open: true,
         proxy: {
-            // '/api': 'http://voltorb:8123'
-            '/api': 'http://localhost:3000'
+            '/api': 'http://voltorb:8123',
+            '/api/websocket': {
+                target: 'ws://voltorb:8123',
+                ws: true
+            }
+            // '/api': 'http://localhost:3000'
         },
         // stuff for serving on network
         // disableHostCheck: true,

@@ -6,7 +6,7 @@ const TopBar = () => {
     return (
         <div className={styles['top-bar']}>
             <div>
-                H.A.U.I.
+                G
             </div>
         </div>
     )

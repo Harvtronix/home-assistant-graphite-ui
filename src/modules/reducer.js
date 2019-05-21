@@ -1,4 +1,5 @@
 import produce from 'immer'
+import Api from './Api'
 
 const onSetDevices = (state, payload) => {
     state = payload
@@ -23,20 +24,32 @@ const onToggleDeviceLockState = (state, payload) => {
 }
 
 const onToggleDevicePowerState = (state, payload) => {
-    let newState = ''
+    // let newState = ''
 
+    // Call the API service to toggle the state
+    Api.toggleDevice(payload.entity_id)
+
+    // Find the correct device index
+    // const index = state.findIndex((ele) => payload.entity_id == ele.entity_id)
+
+    // if (state[index].state == 'on') {
+    //     newState = 'off'
+    // } else {
+    //     newState = 'on'
+    // }
+
+    // state[index].state = newState
+
+    return state
+}
+
+const onSetDeviceState = (state, payload) => {
     // Find the correct device index
     const index = state.findIndex((ele) => payload.entity_id == ele.entity_id)
 
-    if (state[index].state == 'on') {
-        newState = 'off'
-    } else {
-        newState = 'on'
+    if (index >= 0) {
+        state[index] = payload.new_state
     }
-
-    state[index].state = newState
-
-    return state
 }
 
 const reducer = (state, {type, payload}) => {
@@ -49,6 +62,8 @@ const reducer = (state, {type, payload}) => {
             switch (type) {
             case 'SET_DEVICES':
                 return onSetDevices(draft, payload)
+            case 'SET_DEVICE_STATE':
+                return onSetDeviceState(draft, payload)
             case 'TOGGLE_DEVICE_LOCK_STATE':
                 return onToggleDeviceLockState(draft, payload)
             case 'TOGGLE_DEVICE_POWER_STATE':

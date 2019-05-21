@@ -10,7 +10,7 @@ const axios = axiosFactory.create({
     }
 })
 
-const entityTypes = Object.freeze({
+const EntityTypes = Object.freeze({
     AUTOMATION: 'automation.graphite',
     LIGHT: 'light',
     LOCK: 'lock',
@@ -18,11 +18,20 @@ const entityTypes = Object.freeze({
     SWITCH: 'switch'
 })
 
+const toggleableDevices = Object.freeze([
+    EntityTypes.LIGHT,
+    EntityTypes.LOCK,
+    EntityTypes.SWITCH
+])
+
+let ws = null
+let wsReconnectTimeout = null
+
 let lastStates = []
 
 /**
  * Lists devices of particular types from the last server data. The types are values from the
- * `entityTypes` object.
+ * `EntityTypes` object.
  *
  * @param {Array} typesToInclude - List of types to include in the result.
  * @returns {Array} A list of devices.
@@ -52,10 +61,60 @@ const getEntitiesByType = (typesToInclude) => {
  */
 const getDevices = () => {
     return getEntitiesByType([
-        entityTypes.LIGHT,
-        entityTypes.LOCK,
-        entityTypes.SWITCH,
+        EntityTypes.LIGHT,
+        EntityTypes.LOCK,
+        EntityTypes.SWITCH,
     ])
+}
+
+const openWebsocket = (dispatch) => {
+    ws = new WebSocket('ws://' + location.host + '/api/websocket')
+
+    ws.onopen = () => {
+        console.log('Websocket connection established')
+    }
+
+    ws.onmessage = (messageEvent) => {
+        const message = JSON.parse(messageEvent.data)
+
+        if (message.type == 'auth_required') {
+            ws.send(JSON.stringify({
+                type: 'auth',
+                access_token: authToken
+            }))
+        }
+
+        if (message.type == 'auth_ok') {
+            ws.send(JSON.stringify({
+                id: 111,
+                type: 'subscribe_events',
+                event_type: 'state_changed'
+            }))
+        }
+
+        if (message.type == 'event') {
+            dispatch({
+                type: 'SET_DEVICE_STATE',
+                payload: message.event.data
+            })
+        }
+    }
+
+    ws.ondead = () => {
+        if (wsReconnectTimeout == null) {
+            console.log('Websocket is dead. Reconnecting in 5 seconds...')
+
+            wsReconnectTimeout = setTimeout(() => {
+                wsReconnectTimeout = null
+                if (!ws || (ws && ws.readyState != WebSocket.OPEN)) {
+                    openWebsocket(dispatch)
+                }
+            }, 5000)
+        }
+    }
+
+    ws.onclose = ws.ondead
+    ws.onerror = ws.ondead
 }
 
 /**
@@ -78,17 +137,43 @@ const refreshStates = () => {
         )
 
         //script/script.1535436271565
-        // axios.get('/api/services').then((response) => {
-        //     console.log('yo yo')
-        //     console.log(response.data)
-        // })
+        axios.get('/api/services').then((response) => {
+            console.log('AVAILABLE SERVICES:')
+            console.log(response.data)
+        })
+    })
+}
+
+const toggleDevice = (entityId) => {
+    const deviceService = entityId.split('.')[0]
+
+    if (toggleableDevices.indexOf(deviceService) < 0) {
+        throw 'Attempted to toggle non-toggleable device of type ' + deviceService
+    } else {
+        console.log('Toggling device ' + entityId + ' via service ' + deviceService)
+    }
+
+    return new Promise((resolve, reject) => {
+        // Execute the command and resolve (or reject) the promise
+        axios.post('/api/services/' + deviceService + '/toggle', {
+            entity_id: entityId
+        }).then(
+            (response) => {
+                resolve(response)
+            },
+            (error) => {
+                reject(error)
+            }
+        )
     })
 }
 
 export default {
-    entityTypes,
+    EntityTypes,
     getDevices,
-    refreshStates
+    openWebsocket,
+    refreshStates,
+    toggleDevice
 }
 
 /*
