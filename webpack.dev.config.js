@@ -1,18 +1,12 @@
 const prodConfig = require('./webpack.prod.config.js')
+const proxyConfig = require('./dev/proxy-config.js')
 
 module.exports = {
     ...prodConfig,
     mode: 'development',
     devServer: {
         open: true,
-        proxy: {
-            '/api': 'http://voltorb:8123',
-            '/api/websocket': {
-                target: 'ws://voltorb:8123',
-                ws: true
-            }
-            // '/api': 'http://localhost:3000'
-        },
+        proxy: proxyConfig,
         // stuff for serving on network
         // disableHostCheck: true,
         // host: '0.0.0.0',
