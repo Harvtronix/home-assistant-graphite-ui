@@ -4,26 +4,25 @@ import classNames from 'classnames'
 import { OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
 
 import styles from './DeviceTile.m.scss'
-import BrightnessIndicator from './BrightnessIndicator'
-import LockIndicator from './LockIndicator'
-import PowerIndicator from './PowerIndicator'
+import BrightnessIndicator from './SubIndicators/BrightnessSubIndicator'
+import LockIndicator from './Indicators/LockIndicator'
+import PowerIndicator from './Indicators/PowerIndicator'
+import BatteryIndicator from './SubIndicators/BatteryLevelSubIndicator'
 
 const DeviceTile = ({dispatch, ...props}) => {
 
     const BRIGHTNESS_FEATURE = 0b01
 
-    // const getBatteryIndicator = () => {
-    //     if ('supported_features' in props.attributes) {
-    //         if (props.attributes.supported_features) {
-
-    //         }
-    //         return (
-    //             <BatteryIndicator />
-    //         )
-    //     }
-
-    //     return null;
-    // }
+    const getBatteryIndicator = () => {
+        if ('battery_level' in props.attributes) {
+            const batteryLevel = props.attributes.battery_level
+            return (
+                <BatteryIndicator  batteryLevel={batteryLevel} />
+            )
+        } else {
+            return null
+        }
+    }
 
     const getBrightnessIndicator = () => {
         if (hasBrightnessSupport()) {
@@ -45,6 +44,7 @@ const DeviceTile = ({dispatch, ...props}) => {
         switch(devicePrefix) {
         case 'light':
         case 'switch':
+        case 'zwave':
             DeviceIndicator = PowerIndicator
             break
         case 'lock':
@@ -101,7 +101,7 @@ const DeviceTile = ({dispatch, ...props}) => {
 
                 {getBrightnessIndicator()}
 
-                {/* {getBatteryIndicator()} */}
+                {getBatteryIndicator()}
 
                 {getOverflowMenu()}
             </div>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import SunIcon from '@carbon/icons-react/es/light/32'
 import MoonIcon from '@carbon/icons-react/es/asleep/32'
 
-import styles from './DeviceIndicator.m.scss'
+import styles from './Indicator.m.scss'
 
 const PowerIndicator = ({dispatch, ...props}) => {
 
@@ -18,7 +18,7 @@ const PowerIndicator = ({dispatch, ...props}) => {
     }
 
     return (
-        <div className={styles.deviceIndicator}>
+        <div className={styles.indicator}>
             <button
                 aria-label={'toggle ' + props.friendly_name + ' state'}
                 className={styles.button}

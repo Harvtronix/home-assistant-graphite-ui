@@ -1,6 +1,5 @@
-.brightnessIndicator {
+.batteryLevelSubIndicator {
     display: flex;
-    // justify-content: center;
     align-items: center;
 
     position: absolute;
@@ -12,7 +11,7 @@
         height: 1.25rem;
     }
 
-    .brightnessValue {
+    .batteryLevel {
         margin-left: 0.25rem;
     }
 }

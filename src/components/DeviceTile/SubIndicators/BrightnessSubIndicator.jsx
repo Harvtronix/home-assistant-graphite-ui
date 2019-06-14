@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// import BatteryFullIcon from '@carbon/icons-react/es/battery--full/32'
-// import BatteryHalfIcon from '@carbon/icons-react/es/battery--half/32'
-// import BatteryLowIcon from '@carbon/icons-react/es/battery--low/32'
 import BrightnessIcon from '@carbon/icons-react/es/brightness-contrast/32'
 
-import styles from './BrightnessIndicator.m.scss'
+import styles from './BrightnessSubIndicator.m.scss'
 
 const BrightnessIndicator = (props) => {
 
@@ -21,7 +18,7 @@ const BrightnessIndicator = (props) => {
     }
 
     return (
-        <div className={styles.brightnessIndicator}>
+        <div className={styles.brightnessSubIndicator}>
             <BrightnessIcon className={styles.icon} />
             <div className={styles.brightnessValue}>
                 {getBrightnessValue()}%

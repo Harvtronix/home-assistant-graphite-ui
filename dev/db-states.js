@@ -723,7 +723,7 @@ const states = [
         'attributes': {
             'averageRequestRTT': 1505,
             'averageResponseRTT': 1841,
-            'battery_level': 100,
+            'battery_level': 38,
             'capabilities': [
                 'frequent',
                 'routing',

@@ -15,7 +15,8 @@ const EntityTypes = Object.freeze({
     LIGHT: 'light',
     LOCK: 'lock',
     ROUTINE: 'script.graphite',
-    SWITCH: 'switch'
+    SWITCH: 'switch',
+    ZWAVE: 'zwave'
 })
 
 const toggleableDevices = Object.freeze([
@@ -30,7 +31,7 @@ let wsReconnectTimeout = null
 let lastStates = []
 
 /**
- * Lists devices of particular types from the last server data. The types are values from the
+ * Lists entities of particular types from the last server data. The types are values from the
  * `EntityTypes` object.
  *
  * @param {Array} typesToInclude - List of types to include in the result.
@@ -55,7 +56,8 @@ const getEntitiesByType = (typesToInclude) => {
 }
 
 /**
- * Lists devices from the last server data.
+ * Lists entities from the last server data that are considered to be "devices" because of their
+ * "type".
  *
  * @returns {Array} A list of device entities.
  */
@@ -63,12 +65,18 @@ const getDevices = () => {
     return getEntitiesByType([
         EntityTypes.LIGHT,
         EntityTypes.LOCK,
-        EntityTypes.SWITCH,
+        EntityTypes.SWITCH
     ])
 }
 
 const openWebsocket = (dispatch) => {
-    ws = new WebSocket('ws://' + location.host + '/api/websocket')
+    let protocol = location.protocol.startsWith('https') ? 'wss://' : 'ws://'
+    try {
+        ws = new WebSocket(protocol + location.host + '/api/websocket')
+    } catch (e) {
+        console.error('Unable to open websocket: ' + e)
+        return
+    }
 
     ws.onopen = () => {
         console.log('Websocket connection established')
@@ -188,7 +196,7 @@ details of a script? (also how to update??)
 
 what scripts are available?
     /states
-    entity_id starts with script.
+    entity_id starts with "script."
     also: /api/services and look under domain:script for list of "services"
 
 */

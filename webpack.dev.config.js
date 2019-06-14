@@ -11,7 +11,8 @@ module.exports = {
         // disableHostCheck: true,
         // host: '0.0.0.0',
         // useLocalIp: true
-    }
+    },
+    devtool: 'source-map'
 }
 
 module.exports.module.rules[1].options.emitError = false

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import LockedIcon from '@carbon/icons-react/es/locked/32'
 import UnlockedIcon from '@carbon/icons-react/es/unlocked/32'
 
-import styles from './DeviceIndicator.m.scss'
+import styles from './Indicator.m.scss'
 
 const LockIndicator = ({dispatch, ...props}) => {
 
@@ -18,7 +18,7 @@ const LockIndicator = ({dispatch, ...props}) => {
     }
 
     return (
-        <div className={styles.deviceIndicator}>
+        <div className={styles.indicator}>
             <button
                 aria-label={'toggle ' + props.friendly_name + ' state'}
                 className={styles.button}
