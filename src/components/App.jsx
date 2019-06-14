@@ -3,7 +3,7 @@ import React, { useReducer, useEffect } from 'react'
 import reducer from '../modules/reducer'
 import DeviceContext from '../modules/DeviceContext'
 import Api from '../modules/Api'
-import HomeLayout from './HomeLayout'
+import MainLayout from './MainLayout'
 
 const App = () => {
 
@@ -25,7 +25,7 @@ const App = () => {
 
     return (
         <DeviceContext.Provider value={deviceDb}>
-            <HomeLayout dispatch={dispatch} />
+            <MainLayout dispatch={dispatch} />
         </DeviceContext.Provider>
     )
 
