@@ -6,8 +6,9 @@
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.prod.config.js",
     "db": "node dev/server.js",
-    "dev": "npm-run-all --parallel db start",
-    "start": "cross-env GRAPHITE_SERVER='localhost:3000' webpack-dev-server --config webpack.dev.config.js",
+    "dev": "cross-env GRAPHITE_SERVER='localhost:3000' npm-run-all --parallel db start",
+    "hadev": "npm start",
+    "start": "webpack-dev-server --config webpack.dev.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Harvtronix",
