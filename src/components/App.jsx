@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react'
 
-import reducer from '../modules/reducer'
+import reducer from '../modules/deviceContextReducer'
 import DeviceContext from '../modules/DeviceContext'
 import Api from '../modules/Api'
 import MainLayout from './MainLayout'

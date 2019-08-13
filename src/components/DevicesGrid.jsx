@@ -8,7 +8,6 @@ import DeviceTile from './DeviceTile/DeviceTile'
 const DevicesGrid = ({dispatch}) => {
 
     const deviceDb = useContext(DeviceContext)
-    // const currentPage
 
     const getDeviceTiles = () => {
         return deviceDb.map((device) => {
@@ -23,7 +22,7 @@ const DevicesGrid = ({dispatch}) => {
     }
 
     const getTitle = () => {
-
+        // TODO
     }
 
     return (
