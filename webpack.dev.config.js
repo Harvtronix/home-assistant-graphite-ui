@@ -1,4 +1,4 @@
-const prodConfig = require('./webpack.prod.config.js')
+const prodConfig = require('./webpack.config.js')
 const proxyConfig = require('./dev/proxy-config.js')
 
 module.exports = {
