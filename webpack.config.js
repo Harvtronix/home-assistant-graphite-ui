@@ -73,29 +73,29 @@ module.exports = {
             }
         ]
     },
-    optimization: {
-        runtimeChunk: 'single',
-        splitChunks: {
-            chunks: 'all',
-            cacheGroups: {
-                carbon: {
-                    enforce: true,
-                    test: /[\\/\\]node_modules[\\/\\]carbon.*/,
-                    name() {
-                        return 'carbon'
-                    }
-                },
-                vendors: {
-                    enforce: true,
-                    test: /[\\/\\]node_modules[\\/\\]/,
-                    name(module) {
-                        const packageName = module.context.match(/node_modules[/\\](.*)$/)[1]
-                        return packageName.replace(/[/\\]/g, '~')
-                    }
-                }
-            }
-        }
-    },
+    // optimization: {
+    //     runtimeChunk: 'single',
+    //     splitChunks: {
+    //         chunks: 'all',
+    //         cacheGroups: {
+    //             carbon: {
+    //                 enforce: true,
+    //                 test: /[\\/\\]node_modules[\\/\\]carbon.*/,
+    //                 name() {
+    //                     return 'carbon'
+    //                 }
+    //             },
+    //             vendors: {
+    //                 enforce: true,
+    //                 test: /[\\/\\]node_modules[\\/\\]/,
+    //                 name(module) {
+    //                     const packageName = module.context.match(/node_modules[/\\](.*)$/)[1]
+    //                     return packageName.replace(/[/\\]/g, '~')
+    //                 }
+    //             }
+    //         }
+    //     }
+    // },
     output: {
         filename: '[name].chunk.js',
         path: path.resolve(__dirname, 'dist')
