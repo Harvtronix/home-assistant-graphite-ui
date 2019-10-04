@@ -1,0 +1,16 @@
+//
+// Global styles
+//
+$button-padding-margin: 0;
+
+.bx--overflow-menu__icon {
+    fill: inherit;
+}
+
+// Default button
+button {
+    margin: $button-padding-margin;
+    padding: $button-padding-margin;
+    background-color: inherit;
+    border: none;
+}

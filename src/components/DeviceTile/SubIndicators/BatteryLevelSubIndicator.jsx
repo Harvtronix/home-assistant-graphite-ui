@@ -1,9 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import BatteryFullIcon from '@carbon/icons-react/es/battery--full/32'
 import BatteryHalfIcon from '@carbon/icons-react/es/battery--half/32'
 import BatteryLowIcon from '@carbon/icons-react/es/battery--low/32'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import styles from './BatteryLevelSubIndicator.m.scss'
 

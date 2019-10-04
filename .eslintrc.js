@@ -2,7 +2,8 @@ module.exports = {
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -20,6 +21,7 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
+        "simple-import-sort",
         "react",
         "react-hooks",
         "jsdoc"
@@ -55,6 +57,7 @@ module.exports = {
             "error",
             "never"
         ],
+        "simple-import-sort/sort": "warn",
         "jsdoc/check-alignment": 1,
         "jsdoc/check-examples": 1,
         "jsdoc/check-indentation": 1,

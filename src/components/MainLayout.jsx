@@ -1,10 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import { HashRouter, Route } from 'react-router-dom'
 
-import BottomBar from './BottomBar'
-import DevicesGrid from './DevicesGrid'
-import TopBar from './TopBar'
+import BottomBar from './BottomBar/BottomBar'
+import DevicesGrid from './DevicesGrid/DevicesGrid'
+import TopBar from './TopBar/TopBar'
 
 const MainLayout = ({dispatch}) => {
 

@@ -1,7 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import BrightnessIcon from '@carbon/icons-react/es/brightness-contrast/32'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import styles from './BrightnessSubIndicator.m.scss'
 

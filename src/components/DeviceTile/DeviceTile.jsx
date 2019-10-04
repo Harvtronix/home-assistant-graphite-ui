@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import { OverflowMenu, OverflowMenuItem } from 'carbon-components-react'
+import classNames from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import styles from './DeviceTile.m.scss'
-import BrightnessIndicator from './SubIndicators/BrightnessSubIndicator'
 import LockIndicator from './Indicators/LockIndicator'
 import PowerIndicator from './Indicators/PowerIndicator'
 import BatteryIndicator from './SubIndicators/BatteryLevelSubIndicator'
+import BrightnessIndicator from './SubIndicators/BrightnessSubIndicator'
 
 const DeviceTile = ({dispatch, ...props}) => {
 

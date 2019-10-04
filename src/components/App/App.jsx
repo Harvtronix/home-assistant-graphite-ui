@@ -1,9 +1,11 @@
-import React, { useReducer, useEffect } from 'react'
+import './App.scss'
 
-import reducer from '../modules/deviceContextReducer'
-import DeviceContext from '../modules/DeviceContext'
-import Api from '../modules/Api'
-import MainLayout from './MainLayout'
+import React, { useEffect,useReducer } from 'react'
+
+import Api from '../../modules/Api'
+import DeviceContext from '../../modules/DeviceContext'
+import reducer from '../../modules/deviceContextReducer'
+import MainLayout from '../MainLayout'
 
 const App = () => {
 

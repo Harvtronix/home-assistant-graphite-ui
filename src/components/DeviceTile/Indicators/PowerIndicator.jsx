@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import SunIcon from '@carbon/icons-react/es/light/32'
 import MoonIcon from '@carbon/icons-react/es/asleep/32'
+import SunIcon from '@carbon/icons-react/es/light/32'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import styles from './Indicator.m.scss'
 

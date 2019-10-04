@@ -1,9 +1,9 @@
-import React, {  useContext } from 'react'
 import PropTypes from 'prop-types'
+import React, {  useContext } from 'react'
 
-import DeviceContext from '../modules/DeviceContext'
+import DeviceContext from '../../modules/DeviceContext'
+import DeviceTile from '../DeviceTile/DeviceTile'
 import styles from './DevicesGrid.m.scss'
-import DeviceTile from './DeviceTile/DeviceTile'
 
 const DevicesGrid = ({dispatch}) => {
 

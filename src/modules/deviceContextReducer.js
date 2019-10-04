@@ -1,4 +1,5 @@
 import produce from 'immer'
+
 import Api from './Api'
 
 const onSetDevices = (state, payload) => {
@@ -19,8 +20,6 @@ const onToggleDeviceLockState = (state, payload) => {
     }
 
     state[index].state = newState
-
-    return state
 }
 
 const onToggleDevicePowerState = (state, payload) => {
@@ -39,8 +38,6 @@ const onToggleDevicePowerState = (state, payload) => {
     // }
 
     // state[index].state = newState
-
-    return state
 }
 
 const onSetDeviceState = (state, payload) => {
@@ -63,11 +60,14 @@ const reducer = (state, {type, payload}) => {
             case 'SET_DEVICES':
                 return onSetDevices(draft, payload)
             case 'SET_DEVICE_STATE':
-                return onSetDeviceState(draft, payload)
+                onSetDeviceState(draft, payload)
+                break
             case 'TOGGLE_DEVICE_LOCK_STATE':
-                return onToggleDeviceLockState(draft, payload)
+                onToggleDeviceLockState(draft, payload)
+                break
             case 'TOGGLE_DEVICE_POWER_STATE':
-                return onToggleDevicePowerState(draft, payload)
+                onToggleDevicePowerState(draft, payload)
+                break
             }
         },
         (patches) => {

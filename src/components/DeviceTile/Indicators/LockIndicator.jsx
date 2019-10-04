@@ -1,8 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import LockedIcon from '@carbon/icons-react/es/locked/32'
 import UnlockedIcon from '@carbon/icons-react/es/unlocked/32'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import styles from './Indicator.m.scss'
 
