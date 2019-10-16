@@ -23,7 +23,7 @@ server.use(jsonServer.rewriter({
 }))
 
 //===== Custom Routes =====//
-server.use('/services/*/toggle', (req, res, next) => {
+server.post('/services/*/toggle', (req, res, next) => {
     if (req.method !== 'POST') {
         next()
         return
@@ -69,6 +69,7 @@ server.use('/services/*/toggle', (req, res, next) => {
     res.sendStatus(204)
 
     if (websocket != null) {
+        console.log('    Sending websocket message that state changed')
         websocket.send(JSON.stringify(wsMessages.createStateChangedMessage(oldState, newState)))
     }
 })

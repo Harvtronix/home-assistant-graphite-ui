@@ -6,10 +6,10 @@
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.config.js",
     "dev-all": "cross-env GRAPHITE_SERVER='localhost:3000' npm-run-all --parallel dev-db dev-server",
-
     "dev-db": "node dev/server.js",
     "dev-server": "webpack-dev-server --config webpack.dev.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Harvtronix",
   "license": "GPL-3.0",
@@ -19,6 +19,8 @@
     "axios": "^0.19.0",
     "carbon-components": "^10.6.4",
     "carbon-components-react": "^7.6.4",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^0.20.0",
     "immer": "^3.3.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
