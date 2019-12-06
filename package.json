@@ -4,12 +4,12 @@
   "description": "A React-based next-gen user interface for Home Assistant that strives for simplicity over all else",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && webpack --config webpack.config.js",
-    "dev-all": "cross-env GRAPHITE_SERVER='localhost:3000' npm-run-all --parallel dev-db dev-server",
-    "dev-db": "node dev/server.js",
-    "dev-server": "webpack-dev-server --config webpack.dev.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "build": "rimraf dist && webpack --config config/webpack.config.js",
+    "dev-all": "cross-env GRAPHITE_HA_SERVER='localhost:3000' npm-run-all --parallel dev-db dev-server",
+    "dev-db": "node src/__dev__/server.js",
+    "dev-server": "webpack-dev-server --config config/webpack.dev.config.js",
+    "prod-server": "node src/server/index.js",
+    "test": "jest --config config/jest.config.js"
   },
   "author": "Harvtronix",
   "license": "GPL-3.0",
@@ -29,7 +29,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "classnames": "^2.2.6",
     "cross-env": "^5.2.1",
@@ -42,6 +44,8 @@
     "eslint-plugin-simple-import-sort": "^4.0.0",
     "express-ws": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
     "json-server": "^0.14.2",
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.5",

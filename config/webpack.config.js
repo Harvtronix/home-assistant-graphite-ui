@@ -10,7 +10,7 @@ const regexCssModule = /\.m\.s?css$/
 
 module.exports = {
     mode: 'production',
-    entry: './src/index.jsx',
+    entry: path.resolve(__dirname, '..', 'src', 'client', 'index.jsx'),
     module: {
         rules: [
             {
@@ -42,7 +42,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             includePaths: [
-                                path.resolve(__dirname, 'node_modules')
+                                path.resolve(__dirname, '..', 'node_modules')
                             ]
                         }
                     }
@@ -65,7 +65,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             includePaths: [
-                                path.resolve(__dirname, 'node_modules')
+                                path.resolve(__dirname, '..', 'node_modules')
                             ]
                         }
                     }
@@ -98,11 +98,11 @@ module.exports = {
     // },
     output: {
         filename: '[name].chunk.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, '..', 'dist')
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: path.resolve(__dirname, '..', 'src', 'client', 'index.html')
         })
     ],
     resolve: {

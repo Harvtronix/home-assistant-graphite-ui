@@ -1,10 +1,12 @@
 const express = require('express')
 const path = require('path')
 const proxy = require('http-proxy-middleware')
-const proxyConfig = require('./proxy.config.js')
+const proxyConfig = require('../../config/proxy.config.js')
 
 // Create the express server
 const server = express()
+
+console.log('doing the things')
 
 // Set up all proxies from the proxyConfig file
 for (let x in proxyConfig) {
@@ -12,7 +14,7 @@ for (let x in proxyConfig) {
 }
 
 // Serve the static files from the React app
-server.use(express.static(path.join(__dirname, 'dist')))
+server.use(express.static(path.join(__dirname, '..', '..', 'dist')))
 
 const port = process.env.PORT || 6464
 
