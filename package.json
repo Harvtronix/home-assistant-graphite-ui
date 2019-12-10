@@ -9,28 +9,30 @@
     "dev-db": "node src/__dev__/server.js",
     "dev-server": "webpack-dev-server --config config/webpack.dev.config.js",
     "prod-server": "node src/server/index.js",
-    "test": "jest --config config/jest.config.js"
+    "ci": "npm run ci-lint && npm run ci-test",
+    "ci-test": "jest --config config/jest.config.js",
+    "ci-lint": "eslint --max-warnings 0 ."
   },
   "author": "Harvtronix",
   "license": "GPL-3.0",
   "dependencies": {
-    "@carbon/colors": "^10.4.1",
+    "@carbon/colors": "^10.5.0",
     "@carbon/icons-react": "^10.6.1",
     "axios": "^0.19.0",
-    "carbon-components": "^10.6.4",
-    "carbon-components-react": "^7.6.4",
+    "carbon-components": "^10.7.4",
+    "carbon-components-react": "^7.7.4",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.20.0",
     "immer": "^3.3.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.7.4",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "classnames": "^2.2.6",
@@ -39,7 +41,7 @@
     "eslint": "^5.16.0",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-jsdoc": "^4.8.4",
-    "eslint-plugin-react": "^7.15.1",
+    "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-simple-import-sort": "^4.0.0",
     "express-ws": "^4.0.0",
@@ -47,14 +49,14 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "json-server": "^0.14.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.0",
     "npm-run-all": "^4.1.5",
     "prop-types": "^15.7.2",
     "rimraf": "^2.7.1",
     "sass-lint": "^1.13.1",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.41.0",
-    "webpack-dev-server": "^3.8.2"
+    "webpack": "^4.41.2",
+    "webpack-dev-server": "^3.9.0"
   }
 }
