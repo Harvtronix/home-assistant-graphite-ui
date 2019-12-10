@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-Import HomeIcon from '@carbon/icons-react/es/Home/32')
+Import HomeIcon from '@carbon/icons-react/es/Home/32'
 
 import styles from './BottomBar.m.scss'
 
