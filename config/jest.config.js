@@ -6,6 +6,7 @@ module.exports = {
     coverageDirectory: '<rootDir>/jest-coverage',
 
     moduleNameMapper: {
+        '~[/\\\\](.*)$': '<rootDir>/src/$1',
         '\\.(css|scss)$': 'identity-obj-proxy',
     },
 

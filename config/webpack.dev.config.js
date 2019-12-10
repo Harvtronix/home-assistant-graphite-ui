@@ -7,7 +7,7 @@ module.exports = {
     devServer: {
         open: true,
         proxy: proxyConfig,
-        // stuff for serving on network
+        /* stuff for serving on network */
         // disableHostCheck: true,
         // host: '0.0.0.0',
         // useLocalIp: true

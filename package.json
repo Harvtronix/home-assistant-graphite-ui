@@ -2,7 +2,7 @@
   "name": "home-assistant-graphite-ui",
   "version": "1.0.0",
   "description": "A React-based next-gen user interface for Home Assistant that strives for simplicity over all else",
-  "main": "index.js",
+  "main": "src/server/index.js",
   "scripts": {
     "build": "rimraf dist && webpack --config config/webpack.config.js",
     "dev-all": "cross-env GRAPHITE_HA_SERVER='localhost:3000' npm-run-all --parallel dev-db dev-server",

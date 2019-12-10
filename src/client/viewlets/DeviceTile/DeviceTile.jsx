@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import styles from './DeviceTile.m.scss'
-import LockIndicator from './Indicators/LockIndicator'
-import PowerIndicator from './Indicators/PowerIndicator'
-import BatteryIndicator from './SubIndicators/BatteryLevelSubIndicator'
-import BrightnessIndicator from './SubIndicators/BrightnessSubIndicator'
+import LockIndicator from './indicators/LockIndicator'
+import PowerIndicator from './indicators/PowerIndicator'
+import BatteryIndicator from './subIndicators/BatteryLevelSubIndicator'
+import BrightnessIndicator from './subIndicators/BrightnessSubIndicator'
 
-const DeviceTile = ({dispatch, ...props}) => {
+const DeviceTile = (props) => {
 
     const BRIGHTNESS_FEATURE = 0b01
 
@@ -54,7 +54,6 @@ const DeviceTile = ({dispatch, ...props}) => {
 
         return (
             <DeviceIndicator
-                dispatch={dispatch}
                 state={props.state}
                 entity_id={props.entity_id}
                 friendly_name={props.attributes.friendly_name}
@@ -112,7 +111,6 @@ const DeviceTile = ({dispatch, ...props}) => {
 
 DeviceTile.propTypes = {
     attributes: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
     entity_id: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired
 }

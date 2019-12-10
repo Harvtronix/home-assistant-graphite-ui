@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types'
 import React, {  useContext } from 'react'
 
-import DeviceContext from '../../modules/DeviceContext'
-import DeviceTile from '../DeviceTile/DeviceTile'
+import DeviceDb from '~/client/modules/DeviceDb'
+import DeviceTile from '~/client/viewlets/DeviceTile/DeviceTile'
+
 import styles from './DevicesGrid.m.scss'
 
-const DevicesGrid = ({dispatch}) => {
+const DevicesGrid = () => {
 
-    const deviceDb = useContext(DeviceContext)
+    const deviceDb = useContext(DeviceDb.Context)
 
     const getDeviceTiles = () => {
         return deviceDb.map((device) => {
@@ -15,7 +15,6 @@ const DevicesGrid = ({dispatch}) => {
                 <DeviceTile
                     key={'device_tile' + device.entity_id}
                     {...device}
-                    dispatch={dispatch}
                 />
             )
         })
@@ -32,10 +31,6 @@ const DevicesGrid = ({dispatch}) => {
         </div>
     )
 
-}
-
-DevicesGrid.propTypes = {
-    dispatch: PropTypes.func.isRequired
 }
 
 export default DevicesGrid

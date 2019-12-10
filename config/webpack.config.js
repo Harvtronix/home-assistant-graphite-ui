@@ -1,6 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const __dir__ = path.resolve(__dirname, '..')
+
 ////////// Regular expression definitions //////////
 const regexJsAndJsx = /\.jsx?$/
 const regexCss = /\.s?css$/
@@ -10,7 +12,7 @@ const regexCssModule = /\.m\.s?css$/
 
 module.exports = {
     mode: 'production',
-    entry: path.resolve(__dirname, '..', 'src', 'client', 'index.jsx'),
+    entry: path.resolve(__dir__, 'src', 'client', 'index.jsx'),
     module: {
         rules: [
             {
@@ -42,7 +44,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             includePaths: [
-                                path.resolve(__dirname, '..', 'node_modules')
+                                path.resolve(__dir__, 'node_modules')
                             ]
                         }
                     }
@@ -65,7 +67,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             includePaths: [
-                                path.resolve(__dirname, '..', 'node_modules')
+                                path.resolve(__dir__, 'node_modules')
                             ]
                         }
                     }
@@ -98,14 +100,17 @@ module.exports = {
     // },
     output: {
         filename: '[name].chunk.js',
-        path: path.resolve(__dirname, '..', 'dist')
+        path: path.resolve(__dir__, 'dist')
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '..', 'src', 'client', 'index.html')
+            template: path.resolve(__dir__, 'src', 'client', 'index.html')
         })
     ],
     resolve: {
+        alias: {
+            '~': path.resolve(__dir__, 'src')
+        },
         extensions: ['.js', '.jsx']
     }
 }

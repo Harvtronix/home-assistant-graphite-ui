@@ -69,7 +69,7 @@ const getDevices = () => {
     ])
 }
 
-const openWebsocket = (dispatch) => {
+const openWebsocket = (eventCallback) => {
     let protocol = location.protocol.startsWith('https') ? 'wss://' : 'ws://'
     try {
         ws = new WebSocket(protocol + location.host + '/api/websocket')
@@ -101,10 +101,7 @@ const openWebsocket = (dispatch) => {
         }
 
         if (message.type == 'event') {
-            dispatch({
-                type: 'SET_DEVICE_STATE',
-                payload: message.event.data
-            })
+            eventCallback(message.event.data)
         }
     }
 
@@ -115,7 +112,7 @@ const openWebsocket = (dispatch) => {
             wsReconnectTimeout = setTimeout(() => {
                 wsReconnectTimeout = null
                 if (!ws || (ws && ws.readyState != WebSocket.OPEN)) {
-                    openWebsocket(dispatch)
+                    openWebsocket(eventCallback)
                 }
             }, 5000)
         }

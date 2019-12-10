@@ -3,9 +3,11 @@ import SunIcon from '@carbon/icons-react/es/light/32'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import DeviceDb from '~/client/modules/DeviceDb'
+
 import styles from './Indicator.m.scss'
 
-const PowerIndicator = ({dispatch, ...props}) => {
+const PowerIndicator = (props) => {
 
     const getIcon = () => {
         switch (props.state) {
@@ -21,11 +23,8 @@ const PowerIndicator = ({dispatch, ...props}) => {
             <button
                 aria-label={'toggle ' + props.friendly_name + ' state'}
                 className={styles.button}
-                onClick={() => dispatch({
-                    type: 'TOGGLE_DEVICE_POWER_STATE',
-                    payload: {
-                        entity_id: props.entity_id
-                    }
+                onClick={() => DeviceDb.actions.toggleDevicePowerState({
+                    entity_id: props.entity_id
                 })}
             >
                 {getIcon()}
@@ -37,7 +36,6 @@ const PowerIndicator = ({dispatch, ...props}) => {
 PowerIndicator.propTypes = {
     entity_id: PropTypes.string.isRequired,
     friendly_name: PropTypes.string.isRequired,
-    dispatch: PropTypes.func.isRequired,
     state: PropTypes.string.isRequired
 }
 
