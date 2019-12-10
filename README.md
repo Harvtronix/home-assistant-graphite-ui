@@ -4,6 +4,9 @@
     src="https://user-images.githubusercontent.com/27390822/66890471-4eff0b80-efb4-11e9-8ea3-af56ef7c0d4a.png"
     alt="Graphite Logo"
     width="200">
+    
+![](https://github.com/Harvtronix/home-assistant-graphite-ui/workflows/ci-test/badge.svg)
+![](https://github.com/Harvtronix/home-assistant-graphite-ui/workflows/ci-lint/badge.svg)
 
 ## A React-based next-gen user interface for Home Assistant that strives for simplicity over all else.
 
