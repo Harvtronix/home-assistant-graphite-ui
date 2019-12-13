@@ -3,6 +3,8 @@ import React from 'react'
 
 import Api from '~/client/modules/Api'
 
+import Constants from './Constants'
+
 /**
  * The actual context that backs the device database.
  */
@@ -41,18 +43,16 @@ const actions = {
     }),
 
     toggleDeviceLockState: createAction((state, payload) => {
-        let newState = ''
-
         // Find the correct device index
         const index = state.findIndex((ele) => payload.entity_id == ele.entity_id)
 
-        if (state[index].state == 'locked') {
-            newState = 'unlocked'
+        if (state[index].state == Constants.DeviceStates.LOCKED) {
+            // do unlock
+            Api.unlockDevice(payload.entity_id)
         } else {
-            newState = 'locked'
+            // This will cover both "unlocked" and "unknown" cases
+            Api.lockDevice(payload.entity_id)
         }
-
-        state[index].state = newState
     }),
 
     toggleDevicePowerState: createAction((_, payload) => {
@@ -61,7 +61,8 @@ const actions = {
 }
 
 const reducer = (state, {action, payload}) => {
-    console.log('reducer called with action: ' + action + ' and payload:')
+    console.log('() reducer - Action and payload are:')
+    console.log(action)
     console.log(payload)
 
     return produce(

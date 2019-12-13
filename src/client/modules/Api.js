@@ -1,5 +1,7 @@
 import axiosFactory from 'axios'
 
+import Constants from './Constants'
+
 const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0MzY3MTU4NmJlYzA0YTJhYjkyNjI' +
     '4MDA3Y2E1M2RlYSIsImlhdCI6MTU1NzE4OTk2NywiZXhwIjoxODcyNTQ5OTY3fQ.6L7aj4-jqIIA6W6jEf3IVsEjm3d1' +
     'XOHek4dpAIfb3qs'
@@ -10,21 +12,6 @@ const axios = axiosFactory.create({
     }
 })
 
-const EntityTypes = Object.freeze({
-    AUTOMATION: 'automation.graphite',
-    LIGHT: 'light',
-    LOCK: 'lock',
-    ROUTINE: 'script.graphite',
-    SWITCH: 'switch',
-    ZWAVE: 'zwave'
-})
-
-const toggleableDevices = Object.freeze([
-    EntityTypes.LIGHT,
-    EntityTypes.LOCK,
-    EntityTypes.SWITCH
-])
-
 let ws = null
 let wsReconnectTimeout = null
 
@@ -32,7 +19,7 @@ let lastStates = []
 
 /**
  * Lists entities of particular types from the last server data. The types are values from the
- * `EntityTypes` object.
+ * `EntityTypes` constants object.
  *
  * @param {Array} typesToInclude - List of types to include in the result.
  * @returns {Array} A list of devices.
@@ -63,10 +50,32 @@ const getEntitiesByType = (typesToInclude) => {
  */
 const getDevices = () => {
     return getEntitiesByType([
-        EntityTypes.LIGHT,
-        EntityTypes.LOCK,
-        EntityTypes.SWITCH
+        Constants.EntityTypes.LIGHT,
+        Constants.EntityTypes.LOCK,
+        Constants.EntityTypes.SWITCH
     ])
+}
+
+const lockDevice = (entityId) => {
+    const deviceType = entityId.split('.')[0]
+
+    if (Constants.LockableEntities.indexOf(deviceType) < 0) {
+        throw 'Attempted to lock a non-lockable device of type ' + deviceType
+    }
+
+    return new Promise((resolve, reject) => {
+        // Execute the command and resolve (or reject the promise)
+        axios.post('/api/services/' + deviceType + '/lock', {
+            entity_id: entityId
+        }).then(
+            (response) => {
+                resolve(response)
+            },
+            (error) => {
+                reject(error)
+            }
+        )
+    })
 }
 
 const openWebsocket = (eventCallback) => {
@@ -152,7 +161,7 @@ const refreshStates = () => {
 const toggleDevice = (entityId) => {
     const deviceService = entityId.split('.')[0]
 
-    if (toggleableDevices.indexOf(deviceService) < 0) {
+    if (Constants.ToggleableEntities.indexOf(deviceService) < 0) {
         throw 'Attempted to toggle non-toggleable device of type ' + deviceService
     } else {
         console.log('Toggling device ' + entityId + ' via service ' + deviceService)
@@ -173,12 +182,35 @@ const toggleDevice = (entityId) => {
     })
 }
 
+const unlockDevice = (entityId) => {
+    const deviceType = entityId.split('.')[0]
+
+    if (Constants.LockableEntities.indexOf(deviceType) < 0) {
+        throw 'Attempted to unlock a non-lockable device of type ' + deviceType
+    }
+
+    return new Promise((resolve, reject) => {
+        // Execute the command and resolve (or reject the promise)
+        axios.post('/api/services/' + deviceType + '/unlock', {
+            entity_id: entityId
+        }).then(
+            (response) => {
+                resolve(response)
+            },
+            (error) => {
+                reject(error)
+            }
+        )
+    })
+}
+
 export default {
-    EntityTypes,
     getDevices,
+    lockDevice,
     openWebsocket,
     refreshStates,
-    toggleDevice
+    toggleDevice,
+    unlockDevice
 }
 
 /*

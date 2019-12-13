@@ -44,6 +44,9 @@ $font-size: 0.8rem;
         fill: $inverse-01;
         background-color: $inverse-02;
     }
+    .unknown {
+        background-color: $support-01;
+    }
     .warn {
         background-color: $support-03;
     }

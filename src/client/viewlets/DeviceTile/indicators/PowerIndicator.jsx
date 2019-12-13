@@ -1,4 +1,5 @@
 import MoonIcon from '@carbon/icons-react/es/asleep/32'
+import QuestionMarkIcon from '@carbon/icons-react/es/help/32'
 import SunIcon from '@carbon/icons-react/es/light/32'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,6 +16,8 @@ const PowerIndicator = (props) => {
             return <SunIcon className={styles.icon} />
         case 'off':
             return <MoonIcon className={styles.icon} />
+        default:
+            return <QuestionMarkIcon className={styles.icon} />
         }
     }
 

@@ -23,26 +23,95 @@ server.use(jsonServer.rewriter({
 }))
 
 //===== Custom Routes =====//
+server.post('/services/*/lock', (req, res, next) => {
+    if (req.method !== 'POST') {
+        next()
+        return
+    }
+
+    // check if lock exists for entity domain
+    const pathDomainPart = req.path.split('/')[2]
+    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    if (!('lock' in db.services[domainIndex].services)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // check for entity_id property
+    if (!('entity_id' in req.body)) {
+        res.sendStatus(400)
+        return
+    }
+
+    console.log('    Got a request to lock ' + req.body['entity_id'])
+
+    toggleDeviceAndNotify(req.body.entity_id, res)
+})
+
+//===== Custom Routes =====//
 server.post('/services/*/toggle', (req, res, next) => {
     if (req.method !== 'POST') {
         next()
         return
     }
 
+    // check if toggle exists for entity domain
+    const pathDomainPart = req.path.split('/')[2]
+    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    if (!('toggle' in db.services[domainIndex].services)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // check for entity_id property
     if (!('entity_id' in req.body)) {
-        req.sendStatus(400)
+        res.sendStatus(400)
         return
     }
 
     console.log('    Got a request to toggle ' + req.body['entity_id'])
 
-    const entity_id = req.body.entity_id
+    toggleDeviceAndNotify(req.body.entity_id, res)
+})
+
+server.post('/services/*/unlock', (req, res, next) => {
+    if (req.method !== 'POST') {
+        next()
+        return
+    }
+
+    // check if unlock exists for entity domain
+    const pathDomainPart = req.path.split('/')[2]
+    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    if (!('unlock' in db.services[domainIndex].services)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // check for entity_id property
+    if (!('entity_id' in req.body)) {
+        res.sendStatus(400)
+        return
+    }
+
+    console.log('    Got a request to unlock ' + req.body['entity_id'])
+
+    toggleDeviceAndNotify(req.body.entity_id, res)
+})
+
+/**
+ * Helper function to toggle a device with a binary state. Supports locks and switches.
+ *
+ * @param {string} entity_id - Id of the entity to toggle.
+ * @param {*} res - Outgoing response object.
+ */
+const toggleDeviceAndNotify = (entity_id, res) => {
     const states = db.states
 
     // find the entity in the db states
     const index = states.findIndex((ele) => entity_id == ele.entity_id)
     if (index < 0) {
-        req.sendStatus(404)
+        res.sendStatus(404)
         return
     }
 
@@ -72,7 +141,7 @@ server.post('/services/*/toggle', (req, res, next) => {
         console.log('    Sending websocket message that state changed')
         websocket.send(JSON.stringify(wsMessages.createStateChangedMessage(oldState, newState)))
     }
-})
+}
 
 server.ws('/websocket', (ws, req) => {
     console.log('WebSocket connection established to ' + req._remoteAddress)

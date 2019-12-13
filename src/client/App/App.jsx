@@ -16,7 +16,6 @@ const App = () => {
     useEffect(() => {
         Api.refreshStates().then(() => {
             // Dispatch the request to get initial data
-            console.log('here is where i want it to be called')
             DeviceDb.actions.setDevices(Api.getDevices())
 
             // Open the websocket and provide it with the dispatch method
