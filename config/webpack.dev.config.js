@@ -5,6 +5,7 @@ module.exports = {
     ...prodConfig,
     mode: 'development',
     devServer: {
+        historyApiFallback: true,
         open: true,
         proxy: proxyConfig,
         /* stuff for serving on network */

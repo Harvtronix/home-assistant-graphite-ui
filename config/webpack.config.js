@@ -100,7 +100,8 @@ module.exports = {
     // },
     output: {
         filename: '[name].chunk.js',
-        path: path.resolve(__dir__, 'dist')
+        path: path.resolve(__dir__, 'dist'),
+        publicPath: '/'
     },
     plugins: [
         new HtmlWebpackPlugin({

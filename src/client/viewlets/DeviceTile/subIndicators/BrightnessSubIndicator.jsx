@@ -17,12 +17,15 @@ const BrightnessIndicator = (props) => {
     }
 
     return (
-        <div className={styles.brightnessSubIndicator}>
+        <button
+            className={styles.brightnessSubIndicator}
+            onClick={() => (false)}
+        >
             <BrightnessIcon className={styles.icon} />
             <div className={styles.brightnessValue}>
                 {getBrightnessValue()}%
             </div>
-        </div>
+        </button>
     )
 }
 

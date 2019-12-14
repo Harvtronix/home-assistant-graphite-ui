@@ -1,6 +1,7 @@
 import './App.scss'
 
 import React, { useEffect,useReducer } from 'react'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import MainLayout from '~/client/layouts/MainLayout'
 import Api from '~/client/modules/Api'
@@ -27,7 +28,19 @@ const App = () => {
 
     return (
         <DeviceDb.Context.Provider value={deviceDb}>
-            <MainLayout />
+            <BrowserRouter>
+                <Switch>
+                    {/* Redirect to the 'all devices' route by default */}
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <Redirect to='/devices/all' push={false} />
+                        )}
+                    />
+                    <Route component={MainLayout} />
+                </Switch>
+            </BrowserRouter>
         </DeviceDb.Context.Provider>
     )
 
