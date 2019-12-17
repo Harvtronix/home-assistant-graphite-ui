@@ -9,9 +9,9 @@
     "dev-db": "node src/__dev__/server.js",
     "dev-server": "webpack-dev-server --config config/webpack.dev.config.js",
     "prod-server": "node src/server/index.js",
-    "ci": "npm run ci-lint && npm run ci-test",
+    "ci-all": "npm run ci-lint && npm run ci-test",
     "ci-test": "jest --config config/jest.config.js",
-    "ci-lint": "eslint --max-warnings 0 ."
+    "ci-lint": "eslint --ext .js,.jsx --max-warnings 0 ."
   },
   "author": "Harvtronix",
   "license": "GPL-3.0",
