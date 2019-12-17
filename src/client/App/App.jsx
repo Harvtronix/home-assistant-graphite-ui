@@ -1,19 +1,26 @@
 import './App.scss'
 
-import React, { useEffect,useReducer } from 'react'
+import React, { useEffect,useReducer, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 import MainLayout from '~/client/layouts/MainLayout'
 import Api from '~/client/modules/Api'
 import DeviceDb from '~/client/modules/DeviceDb'
 
+import PageTitle from '../modules/PageTitle'
+
 const App = () => {
 
-    // create reducer that will map to DeviceContext
+    // create reducer for DeviceDb.Context
     const [deviceDb, dispatch] = useReducer(DeviceDb.reducer, [])
 
-    DeviceDb.setDispatch(dispatch)
+    // Create reducer for PageTitle.Context
+    const [pageTitle, setPageTitle] = useState('')
 
+    DeviceDb.setDispatch(dispatch)
+    PageTitle.setModifier(setPageTitle)
+
+    // Get initial data and setup websocket
     useEffect(() => {
         Api.refreshStates().then(() => {
             // Dispatch the request to get initial data
@@ -25,6 +32,11 @@ const App = () => {
             })
         })
     }, [])
+
+    // Update the page title as-needed
+    useEffect(() => {
+        document.title = pageTitle
+    }, [pageTitle])
 
     return (
         <DeviceDb.Context.Provider value={deviceDb}>

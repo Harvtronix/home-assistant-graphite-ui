@@ -21,21 +21,24 @@ const EntityTypes = {
     ZWAVE: 'zwave'
 }
 
+const PAGE_TITLE_SUFFIX = ' – Graphite UI'
+
 /* Constants with dependencies on base constants */
+
+const LockableEntities = [
+    EntityTypes.LOCK
+]
 
 const ToggleableEntities = [
     EntityTypes.LIGHT,
     EntityTypes.SWITCH
 ]
 
-const LockableEntities = [
-    EntityTypes.LOCK
-]
-
 export default {
     DeviceStates,
     EntityAttributes,
     EntityTypes,
-    ToggleableEntities,
-    LockableEntities
+    PAGE_TITLE_SUFFIX,
+    LockableEntities,
+    ToggleableEntities
 }

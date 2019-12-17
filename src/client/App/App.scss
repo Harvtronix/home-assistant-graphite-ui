@@ -11,6 +11,7 @@ $button-padding-margin: 0;
 button {
     margin: $button-padding-margin;
     padding: $button-padding-margin;
-    background-color: inherit;
     border: none;
+    background-color: inherit;
+    color: inherit;
 }

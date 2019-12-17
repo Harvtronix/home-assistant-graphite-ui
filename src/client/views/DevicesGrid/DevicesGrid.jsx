@@ -1,7 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import Constants from '~/client/modules/Constants'
 import DeviceDb from '~/client/modules/DeviceDb'
+import PageTitle from '~/client/modules/PageTitle'
 import DeviceTile from '~/client/viewlets/DeviceTile/DeviceTile'
 
 import styles from './DevicesGrid.m.scss'
@@ -20,6 +22,10 @@ const DevicesGrid = () => {
     const deviceDb = useContext(DeviceDb.Context)
 
     const { room } = useParams()
+
+    useEffect(() => {
+        PageTitle.actions.setPageTitle('All devices' + Constants.PAGE_TITLE_SUFFIX)
+    })
 
     const createDeviceTiles = () => {
         if (room != 'all') {

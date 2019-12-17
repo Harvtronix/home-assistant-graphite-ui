@@ -37,9 +37,8 @@ const actions = {
         }
     }),
 
-    setDevices: createAction((state, payload) => {
-        state = payload
-        return state
+    setDevices: createAction((_, payload) => {
+        return payload
     }),
 
     toggleDeviceLockState: createAction((state, payload) => {

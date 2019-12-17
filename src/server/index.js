@@ -6,12 +6,21 @@ const proxyConfig = require('../../config/proxy.config.js')
 // Create the express server
 const server = express()
 
-console.log('doing the things')
+// Save the path to the top-level index file for later
+const indexFile = path.join(__dirname, '..', '..', 'dist', 'index.html')
 
 // Set up all proxies from the proxyConfig file
 for (let x in proxyConfig) {
     server.use(proxy(x, proxyConfig[x]))
 }
+
+// Serve the index file for BrowserRouter routes
+const indexRoutes = [
+    /^\/devices\/?/
+]
+server.get(indexRoutes, (req, res) => {
+    res.sendFile(indexFile)
+})
 
 // Serve the static files from the React app
 server.use(express.static(path.join(__dirname, '..', '..', 'dist')))
