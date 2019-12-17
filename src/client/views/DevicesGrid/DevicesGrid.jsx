@@ -6,14 +6,14 @@ import DeviceTile from '~/client/viewlets/DeviceTile/DeviceTile'
 
 import styles from './DevicesGrid.m.scss'
 
-const testRoomTitles = {
-    all: 'All Devices',
-    livingRoom: 'Living Room'
-}
+// const testRoomTitles = {
+//     all: 'All Devices',
+//     livingRoom: 'Living Room'
+// }
 
-const getTitle = (room) => {
-    return testRoomTitles[room]
-}
+// const getTitle = (room) => {
+//     return testRoomTitles[room]
+// }
 
 const DevicesGrid = () => {
 

@@ -5,7 +5,9 @@ module.exports = {
     ...prodConfig,
     mode: 'development',
     devServer: {
-        historyApiFallback: true,
+        historyApiFallback: {
+            disableDotRule: true
+        },
         open: true,
         proxy: proxyConfig,
         /* stuff for serving on network */
