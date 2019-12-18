@@ -56,6 +56,13 @@ const actions = {
 
     toggleDevicePowerState: createAction((_, payload) => {
         Api.toggleDevice(payload.entity_id)
+    }),
+
+    turnDeviceOn: createAction((state, payload) => {
+        Api.turnDeviceOn(
+            payload.entity_id,
+            'brightness' in payload ? payload.brightness : undefined
+        )
     })
 }
 

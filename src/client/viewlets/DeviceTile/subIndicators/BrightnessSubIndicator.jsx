@@ -3,21 +3,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
+import BrightnessUtils from '~/client/modules/utils/BrightnessUtils'
+
 import styles from './BrightnessSubIndicator.m.scss'
 
-const BrightnessIndicator = (props) => {
+const BrightnessSubIndicator = (props) => {
 
     const history = useHistory()
-
-    const getBrightnessValue = () => {
-        let brightness = props.brightness ? props.brightness : 0
-
-        if (brightness == 0) {
-            return 0
-        } else {
-            return parseInt(Math.max(1, brightness / 255 * 100))
-        }
-    }
 
     return (
         <>
@@ -29,16 +21,16 @@ const BrightnessIndicator = (props) => {
             >
                 <BrightnessIcon className={styles.icon} />
                 <div className={styles.brightnessValue}>
-                    {getBrightnessValue()}%
+                    {BrightnessUtils.getBrightnessAsPercent(props.brightness)}%
                 </div>
             </button>
         </>
     )
 }
 
-BrightnessIndicator.propTypes = {
+BrightnessSubIndicator.propTypes = {
     brightness: PropTypes.number.isRequired,
     entity_id: PropTypes.string.isRequired
 }
 
-export default BrightnessIndicator
+export default BrightnessSubIndicator

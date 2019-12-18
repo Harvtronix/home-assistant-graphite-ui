@@ -1071,7 +1071,7 @@ const states = [
     },
     {
         'attributes': {
-            // 'brightness': 1,
+            'brightness': 1,
             'friendly_name': 'Bedroom Lights',
             'node_id': 9,
             'supported_features': 1,

@@ -74,6 +74,56 @@ server.post('/services/*/toggle', (req, res, next) => {
     toggleDeviceAndNotify(req.body.entity_id, res)
 })
 
+server.post('/services/*/turn_on', (req, res, next) => {
+    if (req.method !== 'POST') {
+        next()
+        return
+    }
+
+    // check if turn_on exists for entity domain
+    const pathDomainPart = req.path.split('/')[2]
+    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    if (!('turn_on' in db.services[domainIndex].services)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // check for entity_id property
+    if (!('entity_id' in req.body)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // find the entity in the db states
+    const states = db.states
+    const index = states.findIndex((ele) => req.body['entity_id'] == ele.entity_id)
+    if (index < 0) {
+        res.sendStatus(404)
+        return
+    }
+    const entity = states[index]
+
+    console.log('    Got a request to turn on ' + req.body['entity_id'])
+    if ('brightness' in req.body) {
+        console.log('    Also adjusting brighness to ' + req.body['brightness'])
+    }
+
+    // Make the modifications
+    const oldState = { ...entity }
+    entity.state = 'on'
+    if ('brightness' in req.body) {
+        entity.attributes.brightness = req.body['brightness']
+    }
+    const newState = { ...entity }
+
+    res.sendStatus(204)
+
+    if (websocket != null) {
+        console.log('    Sending websocket message that state changed')
+        websocket.send(JSON.stringify(wsMessages.createStateChangedMessage(oldState, newState)))
+    }
+})
+
 server.post('/services/*/unlock', (req, res, next) => {
     if (req.method !== 'POST') {
         next()

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
-import DevicesGrid from '~/client/views/DevicesGrid/DevicesGrid'
-import DimmerModal from '~/client/views/DimmerModal/DimmerModal'
+import DevicesGrid from '~/client/views/DevicesGrid'
+import DimmerModal from '~/client/views/DimmerModal'
 
 const Redirects = () => (
     <>

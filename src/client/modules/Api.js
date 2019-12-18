@@ -57,15 +57,15 @@ const getDevices = () => {
 }
 
 const lockDevice = (entityId) => {
-    const deviceType = entityId.split('.')[0]
+    const deviceDomain = entityId.split('.')[0]
 
-    if (Constants.LockableEntities.indexOf(deviceType) < 0) {
-        throw 'Attempted to lock a non-lockable device of type ' + deviceType
+    if (Constants.LockableEntities.indexOf(deviceDomain) < 0) {
+        throw 'Attempted to lock a non-lockable device of type ' + deviceDomain
     }
 
     return new Promise((resolve, reject) => {
         // Execute the command and resolve (or reject the promise)
-        axios.post('/api/services/' + deviceType + '/lock', {
+        axios.post('/api/services/' + deviceDomain + '/lock', {
             entity_id: entityId
         }).then(
             (response) => {
@@ -159,17 +159,17 @@ const refreshStates = () => {
 }
 
 const toggleDevice = (entityId) => {
-    const deviceService = entityId.split('.')[0]
+    const deviceDomain = entityId.split('.')[0]
 
-    if (Constants.ToggleableEntities.indexOf(deviceService) < 0) {
-        throw 'Attempted to toggle non-toggleable device of type ' + deviceService
+    if (Constants.ToggleableEntities.indexOf(deviceDomain) < 0) {
+        throw 'Attempted to toggle non-toggleable device of type ' + deviceDomain
     } else {
-        console.log('Toggling device ' + entityId + ' via service ' + deviceService)
+        console.log('Toggling device ' + entityId + ' via domain ' + deviceDomain)
     }
 
     return new Promise((resolve, reject) => {
         // Execute the command and resolve (or reject) the promise
-        axios.post('/api/services/' + deviceService + '/toggle', {
+        axios.post('/api/services/' + deviceDomain + '/toggle', {
             entity_id: entityId
         }).then(
             (response) => {
@@ -182,16 +182,50 @@ const toggleDevice = (entityId) => {
     })
 }
 
-const unlockDevice = (entityId) => {
-    const deviceType = entityId.split('.')[0]
+/**
+ * Turns a device on, optionally setting its brightness as well.
+ *
+ * @param {*} entityId - The ID of the entity to toggle.
+ * @param {*} brightness - (optional) The brightness level to set for the entity.
+ */
+const turnDeviceOn = (entityId, brightness = 0) => {
+    const deviceDomain = entityId.split('.')[0]
 
-    if (Constants.LockableEntities.indexOf(deviceType) < 0) {
-        throw 'Attempted to unlock a non-lockable device of type ' + deviceType
+    if (Constants.ToggleableEntities.indexOf(deviceDomain) < 0) {
+        throw 'Attempted to turn on a non-toggleable device of type ' + deviceDomain
+    }
+
+    // Build the data to be sent along with the request
+    let data = {
+        entity_id: entityId
+    }
+    if (brightness > 0) {
+        data.brightness = brightness
     }
 
     return new Promise((resolve, reject) => {
         // Execute the command and resolve (or reject the promise)
-        axios.post('/api/services/' + deviceType + '/unlock', {
+        axios.post('/api/services/' + deviceDomain + '/turn_on', data).then(
+            (response) => {
+                resolve(response)
+            },
+            (error) => {
+                reject(error)
+            }
+        )
+    })
+}
+
+const unlockDevice = (entityId) => {
+    const deviceDomain = entityId.split('.')[0]
+
+    if (Constants.LockableEntities.indexOf(deviceDomain) < 0) {
+        throw 'Attempted to unlock a non-lockable device of type ' + deviceDomain
+    }
+
+    return new Promise((resolve, reject) => {
+        // Execute the command and resolve (or reject the promise)
+        axios.post('/api/services/' + deviceDomain + '/unlock', {
             entity_id: entityId
         }).then(
             (response) => {
@@ -210,6 +244,7 @@ export default {
     openWebsocket,
     refreshStates,
     toggleDevice,
+    turnDeviceOn,
     unlockDevice
 }
 
