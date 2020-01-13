@@ -17,4 +17,13 @@ $padding: 0.5rem;
         margin-left: $margin;
         padding: $padding;
     }
+
+    div.title {
+        flex-grow: 1;
+        max-width: 50rem;
+    }
+
+    div.end-cap {
+
+    }
 }

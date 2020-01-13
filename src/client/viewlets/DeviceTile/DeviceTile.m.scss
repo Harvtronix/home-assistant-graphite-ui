@@ -1,25 +1,33 @@
 @import 'carbon-components/scss/globals/scss/theme';
+@import '../../App/App.scss';
 
-$tile-padding: 0.5rem;
-$tile-margin: 0.5rem;
-$tile-size: 10rem;
 $font-size: 0.8rem;
+$ratio-after-content: "";
 
 .deviceTileContainer {
-    width: $tile-size;
-    height: $tile-size;
+    margin: $tile-spacing;
 
     position: relative;
+    min-width: $tile-size;
+    max-width: $tile-size * 1.2;
+
+    flex-grow: 1;
+
+    &:after {
+        display: block;
+        content: $ratio-after-content;
+        margin-top: 100%;
+    }
 
     .deviceTile {
         position: absolute;
 
-        top: $tile-margin;
-        right: $tile-margin;
-        bottom: $tile-margin;
-        left: $tile-margin;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
 
-        padding: $tile-padding;
+        padding: $tile-spacing;
 
         font-size: $font-size;
         line-height: 1rem;

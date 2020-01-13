@@ -8,6 +8,12 @@ const TopBar = () => {
             <div>
                 G
             </div>
+            <div className={styles['title']}>
+                All devices
+            </div>
+            <div className={styles['end-cap']}>
+
+            </div>
         </div>
     )
 }

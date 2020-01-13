@@ -1,7 +1,18 @@
+@import 'carbon-components/scss/globals/scss/theme';
+
 //
 // Global styles
 //
 $button-padding-margin: 0;
+
+//
+// Global constants
+//
+$tile-size: 10rem;
+$min-tile-size: $tile-size;
+$max-tile-size: $tile-size * 1.2;
+$tile-spacing: $spacing-03;
+
 
 .bx--overflow-menu__icon {
     fill: inherit;

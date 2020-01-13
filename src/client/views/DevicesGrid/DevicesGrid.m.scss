@@ -1,11 +1,17 @@
+@import '../../App/App.scss';
+
 .grid {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 10rem;
-    max-width: 50rem;
+    align-items: stretch;
+    margin-bottom: 5rem;
+    max-width: ($max-tile-size + $tile-spacing) * 4;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+
+    h1 {
+        margin: $spacing-03;
+        width: 100%;
+    }
 }
