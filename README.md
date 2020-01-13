@@ -7,7 +7,7 @@
     
 [![](https://github.com/Harvtronix/home-assistant-graphite-ui/workflows/ci-test/badge.svg)](https://github.com/Harvtronix/home-assistant-graphite-ui)
 [![](https://github.com/Harvtronix/home-assistant-graphite-ui/workflows/ci-lint/badge.svg)](https://github.com/Harvtronix/home-assistant-graphite-ui)
-[![Foo](https://img.shields.io/docker/build/harvtronix/home-assistant-graphite-ui?label=build&logo=docker&logoColor=ccccdd)](https://hub.docker.com/r/harvtronix/home-assistant-graphite-ui)
+[![Foo](https://img.shields.io/docker/cloud/build/harvtronix/home-assistant-graphite-ui?label=build&logo=docker&logoColor=ccccdd)](https://hub.docker.com/r/harvtronix/home-assistant-graphite-ui)
 [![Foo](https://img.shields.io/docker/pulls/harvtronix/home-assistant-graphite-ui?label=pulls&logo=docker&logoColor=ccccdd)](https://hub.docker.com/r/harvtronix/home-assistant-graphite-ui)
 
 ## A React-based next-gen user interface for Home Assistant that strives for simplicity over all else.
