@@ -5,9 +5,11 @@ FROM node:latest AS react-build
 WORKDIR /graphite
 COPY . .
 RUN npm ci && npm run build
-COPY dist .
-# COPY src/server ./src/server
+# COPY /graphite/dist .
 
+#
+# Second build phase: Copy react output, copy server code and node modules
+#
 FROM node:latest
 WORKDIR /graphite
 COPY --from=react-build /graphite/node_modules ./node_modules
