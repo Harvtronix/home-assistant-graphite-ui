@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const __dir__ = path.resolve(__dirname, '..')
 
@@ -106,7 +107,10 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dir__, 'src', 'client', 'index.html')
-        })
+        }),
+        new CopyWebpackPlugin([
+            path.resolve(__dir__, 'src', 'client', 'www')
+        ]),
     ],
     resolve: {
         alias: {
