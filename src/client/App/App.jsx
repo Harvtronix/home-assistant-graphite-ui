@@ -20,16 +20,19 @@ const App = () => {
     DeviceDb.setDispatch(dispatch)
     PageTitle.setModifier(setPageTitle)
 
-    // Get initial data and setup websocket
+    // Set up the websocket. When opened, this will load the initial data
     useEffect(() => {
-        Api.refreshStates().then(() => {
-            // Dispatch the request to get initial data
-            DeviceDb.actions.setDevices(Api.getDevices())
-
-            // Open the websocket and provide it with the dispatch method
-            Api.openWebsocket((eventData) => {
+        Api.openWebsocket({
+            onOpen: () => {
+                // Retrieve new states and devices from the API
+                Api.refreshStates().then(() => {
+                    // Put latest data into the device db
+                    DeviceDb.actions.setDevices(Api.getDevices())
+                })
+            },
+            onEvent: (eventData) => {
                 DeviceDb.actions.setDeviceState(eventData)
-            })
+            }
         })
     }, [])
 

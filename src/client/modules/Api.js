@@ -78,7 +78,15 @@ const lockDevice = (entityId) => {
     })
 }
 
-const openWebsocket = (eventCallback) => {
+/**
+ * Establishes a websocket connection.
+ *
+ * @param {Object} props - Args passed to the function.
+ * @param {Function} [props.onOpen] - Optional function to call when websocket is opened.
+ * @param {Function} [props.onEvent] - Optional function to call when an event is received from the
+ * websocket.
+ */
+const openWebsocket = ({onOpen = null, onEvent = null}) => {
     let protocol = location.protocol.startsWith('https') ? 'wss://' : 'ws://'
     try {
         ws = new WebSocket(protocol + location.host + '/api/websocket')
@@ -89,6 +97,9 @@ const openWebsocket = (eventCallback) => {
 
     ws.onopen = () => {
         console.log('Websocket connection established')
+        if (onOpen) {
+            onOpen()
+        }
     }
 
     ws.onmessage = (messageEvent) => {
@@ -110,7 +121,9 @@ const openWebsocket = (eventCallback) => {
         }
 
         if (message.type == 'event') {
-            eventCallback(message.event.data)
+            if (onEvent) {
+                onEvent(message.event.data)
+            }
         }
     }
 
@@ -121,7 +134,7 @@ const openWebsocket = (eventCallback) => {
             wsReconnectTimeout = setTimeout(() => {
                 wsReconnectTimeout = null
                 if (!ws || (ws && ws.readyState != WebSocket.OPEN)) {
-                    openWebsocket(eventCallback)
+                    openWebsocket({onOpen, onEvent})
                 }
             }, 5000)
         }
