@@ -2,6 +2,9 @@
   "name": "home-assistant-graphite-ui",
   "version": "1.0.0",
   "description": "A React-based next-gen user interface for Home Assistant that strives for simplicity over all else",
+  "repository": "git@github.com:Harvtronix/home-assistant-graphite-ui.git",
+  "author": "Harvtronix",
+  "license": "GPL-3.0",
   "main": "src/server/index.js",
   "scripts": {
     "build": "rimraf dist && webpack --config config/webpack.config.js",
@@ -13,8 +16,6 @@
     "ci-test": "jest --config config/jest.config.js",
     "ci-lint": "eslint --ext .js,.jsx --max-warnings 0 ."
   },
-  "author": "Harvtronix",
-  "license": "GPL-3.0",
   "dependencies": {
     "@carbon/colors": "^10.8.0",
     "@carbon/icons-react": "^10.9.1",
