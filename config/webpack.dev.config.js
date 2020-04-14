@@ -9,7 +9,7 @@ module.exports = {
             disableDotRule: true
         },
         open: true,
-        proxy: proxyConfig,
+        proxy: proxyConfig
         /* stuff for serving on network */
         // disableHostCheck: true,
         // host: '0.0.0.0',

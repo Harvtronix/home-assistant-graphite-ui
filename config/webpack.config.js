@@ -38,7 +38,7 @@ module.exports = {
                         options: {
                             importLoaders: 1,
                             modules: {
-                                localIdentName: '[name]__[local]__[hash:base64:5]',
+                                localIdentName: '[name]__[local]__[hash:base64:5]'
                             }
                         }
                     },
@@ -92,7 +92,7 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             path.resolve(__dir__, 'src', 'client', 'www')
-        ]),
+        ])
     ],
     resolve: {
         alias: {

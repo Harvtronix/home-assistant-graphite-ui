@@ -7,7 +7,7 @@ module.exports = {
 
     moduleNameMapper: {
         '~[/\\\\](.*)$': '<rootDir>/src/$1',
-        '\\.(css|scss)$': 'identity-obj-proxy',
+        '\\.(css|scss)$': 'identity-obj-proxy'
     },
 
     testMatch: [
@@ -15,7 +15,7 @@ module.exports = {
     ],
 
     transform: {
-        '\\.(js|jsx)$': 'babel-jest',
+        '\\.(js|jsx)$': 'babel-jest'
     },
 
     transformIgnorePatterns: [
