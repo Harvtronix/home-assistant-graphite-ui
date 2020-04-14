@@ -8,7 +8,6 @@ import BrightnessUtils from '~/client/modules/utils/BrightnessUtils'
 import styles from './BrightnessSubIndicator.m.scss'
 
 const BrightnessSubIndicator = (props) => {
-
     const history = useHistory()
 
     return (

@@ -13,7 +13,7 @@ const SubIndicators = (props) => {
         if (Constants.EntityAttributes.BATTERY_LEVEL in props.attributes) {
             const batteryLevel = props.attributes.battery_level
             return (
-                <BatterySubIndicator  batteryLevel={batteryLevel} />
+                <BatterySubIndicator batteryLevel={batteryLevel} />
             )
         } else {
             return null
@@ -23,8 +23,9 @@ const SubIndicators = (props) => {
     const getBrightnessSubIndicator = () => {
         if (hasBrightnessSupport()) {
             const brightnessValue =
-                (Constants.EntityAttributes.BRIGHTNESS in props.attributes) ?
-                    props.attributes.brightness : 0
+                (Constants.EntityAttributes.BRIGHTNESS in props.attributes)
+                    ? props.attributes.brightness
+                    : 0
 
             return (
                 <BrightnessSubIndicator brightness={brightnessValue} {...props} />

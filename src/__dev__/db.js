@@ -1,7 +1,7 @@
 const states = require('./db-states')
 const services = require('./db-services')
 
-const db  = {
+const db = {
     states,
     services
 }

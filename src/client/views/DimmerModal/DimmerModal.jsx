@@ -3,8 +3,9 @@ import {
     ModalBody,
     ModalFooter,
     ModalHeader,
-    Slider } from 'carbon-components-react'
-import React, {useContext } from 'react'
+    Slider
+} from 'carbon-components-react'
+import React, { useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
 import DeviceDb from '~/client/modules/DeviceDb'
@@ -38,7 +39,7 @@ const DimmerModal = () => {
             labelText="Adjust brightness"
             max={100}
             min={1}
-            onRelease={({value}) => {
+            onRelease={({ value }) => {
                 DeviceDb.actions.turnDeviceOn({
                     entity_id: device.entity_id,
                     brightness: BrightnessUtils.getBrightnessAsByte(value)

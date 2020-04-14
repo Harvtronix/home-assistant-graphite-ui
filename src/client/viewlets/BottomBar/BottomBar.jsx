@@ -6,7 +6,7 @@ import styles from './BottomBar.m.scss'
 
 const BottomBar = () => {
     return (
-        <div className={styles['bottom-bar']}>
+        <div className={styles.bottomBar}>
             <div>1</div>
             <div>
                 <Link to="/">

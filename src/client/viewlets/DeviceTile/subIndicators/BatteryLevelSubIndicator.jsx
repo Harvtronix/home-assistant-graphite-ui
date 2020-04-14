@@ -7,7 +7,6 @@ import React from 'react'
 import styles from './BatteryLevelSubIndicator.m.scss'
 
 const BatteryLevelSubIndicator = (props) => {
-
     const getIcon = () => {
         let Icon = null
 

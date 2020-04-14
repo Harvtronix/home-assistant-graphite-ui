@@ -10,7 +10,7 @@ const server = express()
 const indexFile = path.join(__dirname, '..', '..', 'dist', 'index.html')
 
 // Set up all proxies from the proxyConfig file
-for (let x in proxyConfig) {
+for (const x in proxyConfig) {
     server.use(proxy(x, proxyConfig[x]))
 }
 

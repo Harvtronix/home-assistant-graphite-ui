@@ -8,7 +8,7 @@ const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0MzY3MTU4NmJl
 
 const axios = axiosFactory.create({
     headers: {
-        'Authorization': 'Bearer ' + authToken
+        Authorization: 'Bearer ' + authToken
     }
 })
 
@@ -60,7 +60,7 @@ const lockDevice = (entityId) => {
     const deviceDomain = entityId.split('.')[0]
 
     if (Constants.LockableEntities.indexOf(deviceDomain) < 0) {
-        throw 'Attempted to lock a non-lockable device of type ' + deviceDomain
+        throw new Error('Attempted to lock a non-lockable device of type ' + deviceDomain)
     }
 
     return new Promise((resolve, reject) => {
@@ -81,13 +81,13 @@ const lockDevice = (entityId) => {
 /**
  * Establishes a websocket connection.
  *
- * @param {Object} props - Args passed to the function.
+ * @param {object} props - Args passed to the function.
  * @param {Function} [props.onOpen] - Optional function to call when websocket is opened.
  * @param {Function} [props.onEvent] - Optional function to call when an event is received from the
  * websocket.
  */
-const openWebsocket = ({onOpen = null, onEvent = null}) => {
-    let protocol = location.protocol.startsWith('https') ? 'wss://' : 'ws://'
+const openWebsocket = ({ onOpen = null, onEvent = null }) => {
+    const protocol = location.protocol.startsWith('https') ? 'wss://' : 'ws://'
     try {
         ws = new WebSocket(protocol + location.host + '/api/websocket')
     } catch (e) {
@@ -134,7 +134,7 @@ const openWebsocket = ({onOpen = null, onEvent = null}) => {
             wsReconnectTimeout = setTimeout(() => {
                 wsReconnectTimeout = null
                 if (!ws || (ws && ws.readyState != WebSocket.OPEN)) {
-                    openWebsocket({onOpen, onEvent})
+                    openWebsocket({ onOpen, onEvent })
                 }
             }, 5000)
         }
@@ -175,7 +175,7 @@ const toggleDevice = (entityId) => {
     const deviceDomain = entityId.split('.')[0]
 
     if (Constants.ToggleableEntities.indexOf(deviceDomain) < 0) {
-        throw 'Attempted to toggle non-toggleable device of type ' + deviceDomain
+        throw new Error('Attempted to toggle non-toggleable device of type ' + deviceDomain)
     } else {
         console.log('Toggling device ' + entityId + ' via domain ' + deviceDomain)
     }
@@ -205,11 +205,11 @@ const turnDeviceOn = (entityId, brightness = 0) => {
     const deviceDomain = entityId.split('.')[0]
 
     if (Constants.ToggleableEntities.indexOf(deviceDomain) < 0) {
-        throw 'Attempted to turn on a non-toggleable device of type ' + deviceDomain
+        throw new Error('Attempted to turn on a non-toggleable device of type ' + deviceDomain)
     }
 
     // Build the data to be sent along with the request
-    let data = {
+    const data = {
         entity_id: entityId
     }
     if (brightness > 0) {
@@ -233,7 +233,7 @@ const unlockDevice = (entityId) => {
     const deviceDomain = entityId.split('.')[0]
 
     if (Constants.LockableEntities.indexOf(deviceDomain) < 0) {
-        throw 'Attempted to unlock a non-lockable device of type ' + deviceDomain
+        throw new Error('Attempted to unlock a non-lockable device of type ' + deviceDomain)
     }
 
     return new Promise((resolve, reject) => {

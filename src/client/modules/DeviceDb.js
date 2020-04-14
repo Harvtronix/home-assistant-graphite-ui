@@ -23,7 +23,7 @@ let dispatch = null
  */
 const createAction = (action) => {
     return (payload) => {
-        return dispatch({action, payload})
+        return dispatch({ action, payload })
     }
 }
 
@@ -66,7 +66,7 @@ const actions = {
     })
 }
 
-const reducer = (state, {action, payload}) => {
+const reducer = (state, { action, payload }) => {
     console.log('() reducer - Action and payload are:')
     console.log(action)
     console.log(payload)

@@ -3,7 +3,7 @@
 $margin: 0.5rem;
 $padding: 0.5rem;
 
-.top-bar {
+.topBar {
     @include type-style(productive-heading-03);
     display: flex;
     color: $text-04;
@@ -21,9 +21,5 @@ $padding: 0.5rem;
     div.title {
         flex-grow: 1;
         max-width: 50rem;
-    }
-
-    div.end-cap {
-
     }
 }

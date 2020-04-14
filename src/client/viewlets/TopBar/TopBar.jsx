@@ -4,14 +4,14 @@ import styles from './TopBar.m.scss'
 
 const TopBar = () => {
     return (
-        <div className={styles['top-bar']}>
+        <div className={styles.topBar}>
             <div>
                 G
             </div>
-            <div className={styles['title']}>
+            <div className={styles.title}>
                 All devices
             </div>
-            <div className={styles['end-cap']}>
+            <div className={styles.endCap}>
 
             </div>
         </div>

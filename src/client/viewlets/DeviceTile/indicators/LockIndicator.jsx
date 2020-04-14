@@ -10,7 +10,6 @@ import DeviceDb from '~/client/modules/DeviceDb'
 import styles from './Indicator.m.scss'
 
 const LockIndicator = (props) => {
-
     const getIcon = () => {
         switch (props.state) {
         case Constants.DeviceStates.LOCKED:

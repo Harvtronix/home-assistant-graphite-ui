@@ -43,7 +43,7 @@ server.post('/services/*/lock', (req, res, next) => {
         return
     }
 
-    console.log('    Got a request to lock ' + req.body['entity_id'])
+    console.log('    Got a request to lock ' + req.body.entity_id)
 
     toggleDeviceAndNotify(req.body.entity_id, res)
 })
@@ -69,7 +69,7 @@ server.post('/services/*/toggle', (req, res, next) => {
         return
     }
 
-    console.log('    Got a request to toggle ' + req.body['entity_id'])
+    console.log('    Got a request to toggle ' + req.body.entity_id)
 
     toggleDeviceAndNotify(req.body.entity_id, res)
 })
@@ -96,23 +96,23 @@ server.post('/services/*/turn_on', (req, res, next) => {
 
     // find the entity in the db states
     const states = db.states
-    const index = states.findIndex((ele) => req.body['entity_id'] == ele.entity_id)
+    const index = states.findIndex((ele) => req.body.entity_id == ele.entity_id)
     if (index < 0) {
         res.sendStatus(404)
         return
     }
     const entity = states[index]
 
-    console.log('    Got a request to turn on ' + req.body['entity_id'])
+    console.log('    Got a request to turn on ' + req.body.entity_id)
     if ('brightness' in req.body) {
-        console.log('    Also adjusting brighness to ' + req.body['brightness'])
+        console.log('    Also adjusting brighness to ' + req.body.brightness)
     }
 
     // Make the modifications
     const oldState = { ...entity }
     entity.state = 'on'
     if ('brightness' in req.body) {
-        entity.attributes.brightness = req.body['brightness']
+        entity.attributes.brightness = req.body.brightness
     }
     const newState = { ...entity }
 
@@ -144,7 +144,7 @@ server.post('/services/*/unlock', (req, res, next) => {
         return
     }
 
-    console.log('    Got a request to unlock ' + req.body['entity_id'])
+    console.log('    Got a request to unlock ' + req.body.entity_id)
 
     toggleDeviceAndNotify(req.body.entity_id, res)
 })

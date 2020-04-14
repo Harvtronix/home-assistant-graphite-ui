@@ -18,7 +18,6 @@ const getTitle = (room) => (
 )
 
 const DevicesGrid = () => {
-
     const deviceDb = useContext(DeviceDb.Context)
 
     const { room } = useParams()
@@ -29,7 +28,7 @@ const DevicesGrid = () => {
 
     const createDeviceTiles = () => {
         if (room != 'all') {
-            throw 'Rooms not yet implemented'
+            throw new Error('Rooms not yet implemented')
         }
         return deviceDb.map((device) => {
             return (
@@ -42,12 +41,11 @@ const DevicesGrid = () => {
     }
 
     return (
-        <div className={styles['grid']}>
+        <div className={styles.grid}>
             {getTitle(room)}
             {createDeviceTiles()}
         </div>
     )
-
 }
 
 export default DevicesGrid

@@ -5,7 +5,6 @@ import TopBar from '~/client/viewlets/TopBar'
 import MainLayoutRoutes from '~/client/views/routes/MainLayoutRoutes'
 
 const MainLayout = () => {
-
     return (
         <>
             <TopBar />
@@ -13,7 +12,6 @@ const MainLayout = () => {
             <BottomBar />
         </>
     )
-
 }
 
 export default MainLayout

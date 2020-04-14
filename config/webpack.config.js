@@ -37,16 +37,19 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            localIdentName: '[name]__[local]__[hash:base64:5]',
-                            modules: true
+                            modules: {
+                                localIdentName: '[name]__[local]__[hash:base64:5]',
+                            }
                         }
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            includePaths: [
-                                path.resolve(__dir__, 'node_modules')
-                            ]
+                            sassOptions: {
+                                includePaths: [
+                                    path.resolve(__dir__, 'node_modules')
+                                ]
+                            }
                         }
                     }
                 ]
@@ -67,38 +70,17 @@ module.exports = {
                     {
                         loader: 'sass-loader',
                         options: {
-                            includePaths: [
-                                path.resolve(__dir__, 'node_modules')
-                            ]
+                            sassOptions: {
+                                includePaths: [
+                                    path.resolve(__dir__, 'node_modules')
+                                ]
+                            }
                         }
                     }
                 ]
             }
         ]
     },
-    // optimization: {
-    //     runtimeChunk: 'single',
-    //     splitChunks: {
-    //         chunks: 'all',
-    //         cacheGroups: {
-    //             carbon: {
-    //                 enforce: true,
-    //                 test: /[\\/\\]node_modules[\\/\\]carbon.*/,
-    //                 name() {
-    //                     return 'carbon'
-    //                 }
-    //             },
-    //             vendors: {
-    //                 enforce: true,
-    //                 test: /[\\/\\]node_modules[\\/\\]/,
-    //                 name(module) {
-    //                     const packageName = module.context.match(/node_modules[/\\](.*)$/)[1]
-    //                     return packageName.replace(/[/\\]/g, '~')
-    //                 }
-    //             }
-    //         }
-    //     }
-    // },
     output: {
         filename: '[name].chunk.js',
         path: path.resolve(__dir__, 'dist'),

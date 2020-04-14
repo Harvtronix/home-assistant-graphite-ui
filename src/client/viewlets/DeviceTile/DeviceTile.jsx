@@ -9,9 +9,7 @@ import styles from './DeviceTile.m.scss'
 import DeviceIndicator from './indicators/DeviceIndicator'
 import SubIndicators from './subIndicators/SubIndicators'
 
-
 const DeviceTile = (props) => {
-
     const getDeviceTileClassName = () => {
         return classNames({
             [styles.deviceTile]: true,
@@ -48,7 +46,6 @@ const DeviceTile = (props) => {
             </div>
         </div>
     )
-
 }
 
 DeviceTile.propTypes = {
