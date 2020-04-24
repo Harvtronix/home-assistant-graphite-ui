@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
 import Constants from '~/client/modules/Constants'
 import DeviceDb from '~/client/modules/DeviceDb'
 import PageTitle from '~/client/modules/PageTitle'
-import DeviceTile from '~/client/viewlets/DeviceTile/DeviceTile'
+import DeviceTile from '~/client/components/_shared/DeviceTile/DeviceTile'
 
-import styles from './DevicesGrid.m.scss'
+import styles from './Room.m.scss'
+import Routes, { mklink } from '~/client/modules/Routes'
+import Dimmer from './dimmer/Dimmer'
 
 const testRoomTitles = {
     all: 'All devices',
@@ -17,7 +19,31 @@ const getTitle = (room) => (
     <h1>{testRoomTitles[room]}</h1>
 )
 
-const DevicesGrid = () => {
+const RoomRoutes = () => {
+    const match = useRouteMatch()
+
+    console.log('hello')
+    console.log(match.path)
+
+    return (
+        <Switch>
+            <Route
+                // TODO: allow this to be appended to any route?
+                path={Routes.devices_room_dimmer_entityId}
+                component={Dimmer}
+            />
+
+            <Route
+                path={match.path}
+                render={() => (
+                    <Redirect to={mklink(Routes.devices_room, 'all')} push={false} />
+                )}
+            />
+        </Switch>
+    )
+}
+
+const Room = () => {
     const deviceDb = useContext(DeviceDb.Context)
 
     const { room } = useParams()
@@ -44,8 +70,9 @@ const DevicesGrid = () => {
         <div className={styles.grid}>
             {getTitle(room)}
             {createDeviceTiles()}
+            <RoomRoutes />
         </div>
     )
 }
 
-export default DevicesGrid
+export default Room

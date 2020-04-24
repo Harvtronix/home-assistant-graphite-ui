@@ -1,13 +1,32 @@
 import './App.scss'
 
 import React, { useEffect, useReducer, useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 
-import MainLayout from '~/client/layouts/MainLayout'
 import Api from '~/client/modules/Api'
 import DeviceDb from '~/client/modules/DeviceDb'
+import Routes, { mklink } from '~/client/modules/Routes'
 
 import PageTitle from '../modules/PageTitle'
+import TopBar from './TopBar/TopBar'
+import BottomBar from './BottomBar/BottomBar'
+import Room from '../components/devices/room/Room'
+
+const AppRoutes = () => {
+    return (
+        <Switch>
+            <Route path={Routes.devices_room} component={Room} />
+
+            <Route
+                exact
+                path='/'
+                render={() => (
+                    <Redirect to={mklink(Routes.devices_room, 'all')} push={false} />
+                )}
+            />
+        </Switch>
+    )
+}
 
 const App = () => {
     // create reducer for DeviceDb.Context
@@ -43,7 +62,9 @@ const App = () => {
     return (
         <DeviceDb.Context.Provider value={deviceDb}>
             <BrowserRouter>
-                <MainLayout />
+                <TopBar />
+                <AppRoutes />
+                <BottomBar />
             </BrowserRouter>
         </DeviceDb.Context.Provider>
     )

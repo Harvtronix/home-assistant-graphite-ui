@@ -11,8 +11,8 @@ import { useHistory, useParams } from 'react-router-dom'
 import DeviceDb from '~/client/modules/DeviceDb'
 import BrightnessUtils from '~/client/modules/utils/BrightnessUtils'
 
-const DimmerModal = () => {
-    const { entity_id } = useParams()
+const Dimmer = () => {
+    const { entityId } = useParams()
     const history = useHistory()
     const devices = useContext(DeviceDb.Context)
 
@@ -21,7 +21,7 @@ const DimmerModal = () => {
         return null
     }
 
-    const device = devices.find((device) => (device.entity_id == entity_id))
+    const device = devices.find((device) => (device.entity_id == entityId))
 
     // Ensure we actually found a device
     if (!device) {
@@ -71,4 +71,4 @@ const DimmerModal = () => {
     )
 }
 
-export default DimmerModal
+export default Dimmer
