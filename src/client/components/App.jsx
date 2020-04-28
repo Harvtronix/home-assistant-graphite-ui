@@ -1,29 +1,22 @@
 import './App.scss'
 
 import React, { useEffect, useReducer, useState } from 'react'
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Api from '~/client/modules/Api'
 import DeviceDb from '~/client/modules/DeviceDb'
-import Routes, { mklink } from '~/client/modules/Routes'
+import PageTitle from '~/client/modules/PageTitle'
 
-import PageTitle from '../modules/PageTitle'
-import TopBar from './TopBar/TopBar'
-import BottomBar from './BottomBar/BottomBar'
-import Room from '../components/devices/room/Room'
+import BottomBar from './App/BottomBar/BottomBar'
+import TopBar from './App/TopBar/TopBar'
+import Devices from './devices/Devices'
 
 const AppRoutes = () => {
     return (
         <Switch>
-            <Route path={Routes.devices_room} component={Room} />
+            <Route path='/devices' component={Devices} />
 
-            <Route
-                exact
-                path='/'
-                render={() => (
-                    <Redirect to={mklink(Routes.devices_room, 'all')} push={false} />
-                )}
-            />
+            <Redirect to='/devices' />
         </Switch>
     )
 }
@@ -60,13 +53,13 @@ const App = () => {
     }, [pageTitle])
 
     return (
-        <DeviceDb.Context.Provider value={deviceDb}>
-            <BrowserRouter>
+        <BrowserRouter>
+            <DeviceDb.Context.Provider value={deviceDb}>
                 <TopBar />
                 <AppRoutes />
                 <BottomBar />
-            </BrowserRouter>
-        </DeviceDb.Context.Provider>
+            </DeviceDb.Context.Provider>
+        </BrowserRouter>
     )
 }
 

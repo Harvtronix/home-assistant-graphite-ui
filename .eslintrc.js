@@ -21,7 +21,8 @@ module.exports = {
         sourceType: 'module'
     },
     plugins: [
-        'react'
+        'react',
+        'simple-import-sort'
     ],
     rules: {
         'camelcase': 'off',
@@ -42,7 +43,8 @@ module.exports = {
             "error",
             4
         ],
-        'spaced-comment': 'off'
+        'simple-import-sort/sort': 'warn',
+        'spaced-comment': 'off',
     },
     'settings': {
         'react': {
