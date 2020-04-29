@@ -22,7 +22,7 @@ const Dimmer = () => {
         return null
     }
 
-    const device = devices.find((device) => (device.entity_id == entity_id))
+    const device = devices.find((device) => (device.entity_id === entity_id))
 
     // Ensure we actually found a device
     if (!device) {

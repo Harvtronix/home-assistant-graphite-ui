@@ -23,17 +23,17 @@ const Room = () => {
     const { path } = useRouteMatch()
     const { room } = useParams()
 
-    const RoomRoutes = () => {
+    const Routes = () => {
         return (
             <Route path={`${path}/dimmer/:entity_id`} component={Dimmer} />
         )
     }
 
     useEffect(() => {
-        PageTitle.actions.setPageTitle('All devices' + Constants.PAGE_TITLE_SUFFIX)
-    })
+        PageTitle.actions.setPageTitle(testRoomTitles[room] + Constants.PAGE_TITLE_SUFFIX)
+    }, [room])
 
-    if (room != 'all') {
+    if (room !== 'all') {
         throw new Error('Rooms not yet implemented')
     }
 
@@ -43,7 +43,7 @@ const Room = () => {
                 {getTitle(room)}
                 <DeviceTiles deviceDb={deviceDb} />
             </div>
-            <RoomRoutes path={path} />
+            <Routes />
         </>
     )
 }

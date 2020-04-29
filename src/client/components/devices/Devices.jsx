@@ -4,13 +4,13 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 import Room from './room/Room'
 
 const Devices = () => {
-    const { path } = useRouteMatch()
+    const { path, url } = useRouteMatch()
 
     return (
         <Switch>
             <Route path={`${path}/:room`} component={Room} />
 
-            <Redirect to={`${path}/all`} />
+            <Redirect to={`${url}/all`} />
         </Switch>
     )
 }

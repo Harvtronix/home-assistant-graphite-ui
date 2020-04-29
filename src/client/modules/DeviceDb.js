@@ -30,7 +30,7 @@ const createAction = (action) => {
 const actions = {
     setDeviceState: createAction((state, payload) => {
         // Find the correct device index
-        const index = state.findIndex((ele) => payload.entity_id == ele.entity_id)
+        const index = state.findIndex((ele) => payload.entity_id === ele.entity_id)
 
         if (index >= 0) {
             state[index] = payload.new_state
@@ -43,9 +43,9 @@ const actions = {
 
     toggleDeviceLockState: createAction((state, payload) => {
         // Find the correct device index
-        const index = state.findIndex((ele) => payload.entity_id == ele.entity_id)
+        const index = state.findIndex((ele) => payload.entity_id === ele.entity_id)
 
-        if (state[index].state == Constants.DeviceStates.LOCKED) {
+        if (state[index].state === Constants.DeviceStates.LOCKED) {
             // do unlock
             Api.unlockDevice(payload.entity_id)
         } else {

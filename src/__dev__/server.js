@@ -31,7 +31,7 @@ server.post('/services/*/lock', (req, res, next) => {
 
     // check if lock exists for entity domain
     const pathDomainPart = req.path.split('/')[2]
-    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    const domainIndex = db.services.findIndex((ele) => (ele.domain === pathDomainPart))
     if (!('lock' in db.services[domainIndex].services)) {
         res.sendStatus(400)
         return
@@ -57,7 +57,7 @@ server.post('/services/*/toggle', (req, res, next) => {
 
     // check if toggle exists for entity domain
     const pathDomainPart = req.path.split('/')[2]
-    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    const domainIndex = db.services.findIndex((ele) => (ele.domain === pathDomainPart))
     if (!('toggle' in db.services[domainIndex].services)) {
         res.sendStatus(400)
         return
@@ -82,7 +82,7 @@ server.post('/services/*/turn_on', (req, res, next) => {
 
     // check if turn_on exists for entity domain
     const pathDomainPart = req.path.split('/')[2]
-    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    const domainIndex = db.services.findIndex((ele) => (ele.domain === pathDomainPart))
     if (!('turn_on' in db.services[domainIndex].services)) {
         res.sendStatus(400)
         return
@@ -96,7 +96,7 @@ server.post('/services/*/turn_on', (req, res, next) => {
 
     // find the entity in the db states
     const states = db.states
-    const index = states.findIndex((ele) => req.body.entity_id == ele.entity_id)
+    const index = states.findIndex((ele) => req.body.entity_id === ele.entity_id)
     if (index < 0) {
         res.sendStatus(404)
         return
@@ -132,7 +132,7 @@ server.post('/services/*/unlock', (req, res, next) => {
 
     // check if unlock exists for entity domain
     const pathDomainPart = req.path.split('/')[2]
-    const domainIndex = db.services.findIndex((ele) => (ele.domain == pathDomainPart))
+    const domainIndex = db.services.findIndex((ele) => (ele.domain === pathDomainPart))
     if (!('unlock' in db.services[domainIndex].services)) {
         res.sendStatus(400)
         return
@@ -159,7 +159,7 @@ const toggleDeviceAndNotify = (entity_id, res) => {
     const states = db.states
 
     // find the entity in the db states
-    const index = states.findIndex((ele) => entity_id == ele.entity_id)
+    const index = states.findIndex((ele) => entity_id === ele.entity_id)
     if (index < 0) {
         res.sendStatus(404)
         return

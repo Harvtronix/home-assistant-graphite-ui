@@ -28,7 +28,7 @@ const getEntitiesByType = (typesToInclude) => {
     // Return only devices that match an included type from typesToInclude
     const devices = lastStates.filter((entity) => (
         typesToInclude.findIndex((type) => (
-            entity.entity_id.split('.')[0] == type
+            entity.entity_id.split('.')[0] === type
         )) >= 0
     ))
 
@@ -105,14 +105,14 @@ const openWebsocket = ({ onOpen = null, onEvent = null }) => {
     ws.onmessage = (messageEvent) => {
         const message = JSON.parse(messageEvent.data)
 
-        if (message.type == 'auth_required') {
+        if (message.type === 'auth_required') {
             ws.send(JSON.stringify({
                 type: 'auth',
                 access_token: authToken
             }))
         }
 
-        if (message.type == 'auth_ok') {
+        if (message.type === 'auth_ok') {
             ws.send(JSON.stringify({
                 id: 111,
                 type: 'subscribe_events',
@@ -120,7 +120,7 @@ const openWebsocket = ({ onOpen = null, onEvent = null }) => {
             }))
         }
 
-        if (message.type == 'event') {
+        if (message.type === 'event') {
             if (onEvent) {
                 onEvent(message.event.data)
             }
@@ -133,7 +133,7 @@ const openWebsocket = ({ onOpen = null, onEvent = null }) => {
 
             wsReconnectTimeout = setTimeout(() => {
                 wsReconnectTimeout = null
-                if (!ws || (ws && ws.readyState != WebSocket.OPEN)) {
+                if (!ws || (ws && ws.readyState !== WebSocket.OPEN)) {
                     openWebsocket({ onOpen, onEvent })
                 }
             }, 5000)

@@ -11,7 +11,7 @@ import BottomBar from './App/BottomBar/BottomBar'
 import TopBar from './App/TopBar/TopBar'
 import Devices from './devices/Devices'
 
-const AppRoutes = () => {
+const Routes = () => {
     return (
         <Switch>
             <Route path='/devices' component={Devices} />
@@ -56,7 +56,7 @@ const App = () => {
         <BrowserRouter>
             <DeviceDb.Context.Provider value={deviceDb}>
                 <TopBar />
-                <AppRoutes />
+                <Routes />
                 <BottomBar />
             </DeviceDb.Context.Provider>
         </BrowserRouter>
