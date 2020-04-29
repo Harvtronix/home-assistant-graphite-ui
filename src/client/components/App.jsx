@@ -1,11 +1,12 @@
 import './App.scss'
 
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { useSubstate } from 'react-substate'
 
 import Api from '~/client/modules/Api'
 import DeviceDb from '~/client/modules/DeviceDb'
-import PageTitle from '~/client/modules/PageTitle'
+import { Substates } from '~/client/modules/Substates'
 
 import BottomBar from './App/BottomBar/BottomBar'
 import TopBar from './App/TopBar/TopBar'
@@ -25,11 +26,9 @@ const App = () => {
     // create reducer for DeviceDb.Context
     const [deviceDb, dispatch] = useReducer(DeviceDb.reducer, [])
 
-    // Create reducer for PageTitle.Context
-    const [pageTitle, setPageTitle] = useState('')
+    const [pageTitle] = useSubstate(Substates.pageTitle)
 
     DeviceDb.setDispatch(dispatch)
-    PageTitle.setModifier(setPageTitle)
 
     // Set up the websocket. When opened, this will load the initial data
     useEffect(() => {

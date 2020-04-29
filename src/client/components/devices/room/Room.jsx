@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { Route, useParams, useRouteMatch } from 'react-router-dom'
+import { useSubstate } from 'react-substate'
 
 import Constants from '~/client/modules/Constants'
 import DeviceDb from '~/client/modules/DeviceDb'
-import PageTitle from '~/client/modules/PageTitle'
+import { Actions, Substates } from '~/client/modules/Substates'
 
 import Dimmer from './dimmer/Dimmer'
 import styles from './Room.m.scss'
@@ -23,6 +24,8 @@ const Room = () => {
     const { path } = useRouteMatch()
     const { room } = useParams()
 
+    const [, dispatch] = useSubstate(Substates.pageTitle)
+
     const Routes = () => {
         return (
             <Route path={`${path}/dimmer/:entity_id`} component={Dimmer} />
@@ -30,8 +33,8 @@ const Room = () => {
     }
 
     useEffect(() => {
-        PageTitle.actions.setPageTitle(testRoomTitles[room] + Constants.PAGE_TITLE_SUFFIX)
-    }, [room])
+        dispatch(Actions.updatePageTitle, testRoomTitles[room] + Constants.PAGE_TITLE_SUFFIX)
+    }, [room, dispatch])
 
     if (room !== 'all') {
         throw new Error('Rooms not yet implemented')
