@@ -3,13 +3,17 @@ import LockedIcon from '@carbon/icons-react/es/locked/32'
 import UnlockedIcon from '@carbon/icons-react/es/unlocked/32'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useSubstate } from 'react-substate'
 
 import Constants from '~/client/modules/Constants'
-import DeviceDb from '~/client/modules/DeviceDb'
+import actions from '~/client/modules/substate/actions'
+import substates from '~/client/modules/substate/substates'
 
 import styles from './Indicator.m.scss'
 
 const LockIndicator = (props) => {
+    const [, dispatch] = useSubstate(substates.deviceDb)
+
     const getIcon = () => {
         switch (props.state) {
         case Constants.DeviceStates.LOCKED:
@@ -26,9 +30,10 @@ const LockIndicator = (props) => {
             <button
                 aria-label={'toggle ' + props.friendly_name + ' state'}
                 className={styles.button}
-                onClick={() => DeviceDb.actions.toggleDeviceLockState({
-                    entity_id: props.entity_id
-                })}
+                onClick={() => dispatch(
+                    actions.deviceDb.toggleDeviceLockState,
+                    { entity_id: props.entity_id }
+                )}
             >
                 {getIcon()}
             </button>

@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import React, { useEffect } from 'react'
 import { Route, useParams, useRouteMatch } from 'react-router-dom'
 import { useSubstate } from 'react-substate'
 
 import Constants from '~/client/modules/Constants'
-import DeviceDb from '~/client/modules/DeviceDb'
-import { Actions, Substates } from '~/client/modules/Substates'
+import actions from '~/client/modules/substate/actions'
+import substates from '~/client/modules/substate/substates'
 
 import Dimmer from './dimmer/Dimmer'
 import styles from './Room.m.scss'
@@ -15,25 +16,24 @@ const testRoomTitles = {
     livingRoom: 'Living Room'
 }
 
-const getTitle = (room) => (
+const Title = ({ room }) => (
     <h1>{testRoomTitles[room]}</h1>
 )
 
+const Routes = ({ path }) => {
+    return (
+        <Route path={`${path}/dimmer/:entity_id`} component={Dimmer} />
+    )
+}
+
 const Room = () => {
-    const deviceDb = useContext(DeviceDb.Context)
     const { path } = useRouteMatch()
     const { room } = useParams()
 
-    const [, dispatch] = useSubstate(Substates.pageTitle)
-
-    const Routes = () => {
-        return (
-            <Route path={`${path}/dimmer/:entity_id`} component={Dimmer} />
-        )
-    }
+    const [, dispatch] = useSubstate(substates.pageTitle)
 
     useEffect(() => {
-        dispatch(Actions.updatePageTitle, testRoomTitles[room] + Constants.PAGE_TITLE_SUFFIX)
+        dispatch(actions.updatePageTitle, testRoomTitles[room] + Constants.PAGE_TITLE_SUFFIX)
     }, [room, dispatch])
 
     if (room !== 'all') {
@@ -43,12 +43,20 @@ const Room = () => {
     return (
         <>
             <div className={styles.grid}>
-                {getTitle(room)}
-                <DeviceTiles deviceDb={deviceDb} />
+                <Title room={room} />
+                <DeviceTiles />
             </div>
-            <Routes />
+            <Routes path={path} />
         </>
     )
+}
+
+Title.propTypes = {
+    room: PropTypes.string.isRequired
+}
+
+Routes.propTypes = {
+    path: PropTypes.string.isRequired
 }
 
 export default Room

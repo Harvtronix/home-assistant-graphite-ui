@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import { useSubstate } from 'react-substate'
 
 import DeviceTile from '~/client/components/_shared/DeviceTile/DeviceTile'
+import substates from '~/client/modules/substate/substates'
 
-const DeviceTiles = ({ deviceDb, ...props }) => {
+const DeviceTiles = () => {
+    const [deviceDb] = useSubstate(substates.deviceDb)
+
     return deviceDb.map((device) => {
         return (
             <DeviceTile
@@ -12,10 +15,6 @@ const DeviceTiles = ({ deviceDb, ...props }) => {
             />
         )
     })
-}
-
-DeviceTiles.propTypes = {
-    deviceDb: PropTypes.array
 }
 
 export default DeviceTiles

@@ -6,16 +6,39 @@ import {
     Slider
 } from 'carbon-components-react'
 import PropTypes from 'prop-types'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { useSubstate } from 'react-substate'
 
-import DeviceDb from '~/client/modules/DeviceDb'
+import actions from '~/client/modules/substate/actions'
+import substates from '~/client/modules/substate/substates'
 import BrightnessUtils from '~/client/modules/utils/BrightnessUtils'
 
+const ModalBodyContent = ({ dispatch, device }) => {
+    return (
+        <Slider
+            ariaLabelInput="Adjust brightness slider"
+            inputType="number"
+            labelText="Adjust brightness"
+            max={100}
+            min={1}
+            onRelease={({ value }) => {
+                dispatch(actions.deviceDb.turnDeviceOn, {
+                    entity_id: device.entity_id,
+                    brightness: BrightnessUtils.getBrightnessAsByte(value)
+                })
+            }}
+            step={1}
+            value={BrightnessUtils.getBrightnessAsPercent(device.attributes.brightness)}
+        />
+    )
+}
+
 const Dimmer = () => {
-    const devices = useContext(DeviceDb.Context)
     const history = useHistory()
     const { entity_id } = useParams()
+
+    const [devices, dispatch] = useSubstate(substates.deviceDb)
 
     // Ensure we have a set of devices
     if (!devices) {
@@ -33,24 +56,6 @@ const Dimmer = () => {
         history.goBack()
     }
 
-    const createBodyContent = () => (
-        <Slider
-            ariaLabelInput="Adjust brightness slider"
-            inputType="number"
-            labelText="Adjust brightness"
-            max={100}
-            min={1}
-            onRelease={({ value }) => {
-                DeviceDb.actions.turnDeviceOn({
-                    entity_id: device.entity_id,
-                    brightness: BrightnessUtils.getBrightnessAsByte(value)
-                })
-            }}
-            step={1}
-            value={BrightnessUtils.getBrightnessAsPercent(device.attributes.brightness)}
-        />
-    )
-
     return (
         <ComposedModal
             onClose={handleCloseModal}
@@ -62,7 +67,7 @@ const Dimmer = () => {
                 title={device.attributes.friendly_name}
             />
             <ModalBody aria-label="Adjust device brightness">
-                {createBodyContent()}
+                <ModalBodyContent dispatch={dispatch} device={device} />
             </ModalBody>
             <ModalFooter
                 onRequestSubmit={handleCloseModal}
@@ -70,6 +75,11 @@ const Dimmer = () => {
             />
         </ComposedModal>
     )
+}
+
+ModalBodyContent.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    device: PropTypes.object.isRequired
 }
 
 Dimmer.propTypes = {
