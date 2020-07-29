@@ -21,11 +21,12 @@ module.exports = {
         sourceType: 'module'
     },
     plugins: [
-        'react'
+        'react',
+        'react-hooks',
+        'simple-import-sort'
     ],
     rules: {
         'camelcase': 'off',
-        'eqeqeq': 'off',
         'indent': [
             'error',
             4
@@ -38,11 +39,14 @@ module.exports = {
             'warn',
             { 'code': 100 }
         ],
-        "react/jsx-indent": [
+        'react/jsx-indent': [
             "error",
             4
         ],
-        'spaced-comment': 'off'
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
+        'simple-import-sort/sort': 'warn',
+        'spaced-comment': 'off',
     },
     'settings': {
         'react': {

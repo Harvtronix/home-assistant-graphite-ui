@@ -1,7 +1,7 @@
 import BrightnessIcon from '@carbon/icons-react/es/brightness-contrast/32'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 
 import BrightnessUtils from '~/client/modules/utils/BrightnessUtils'
 
@@ -9,13 +9,14 @@ import styles from './BrightnessSubIndicator.m.scss'
 
 const BrightnessSubIndicator = (props) => {
     const history = useHistory()
+    const { url } = useRouteMatch()
 
     return (
         <>
             <button
                 className={styles.brightnessSubIndicator}
                 onClick={() => {
-                    history.push(`/devices/all/dimmer/${props.entity_id}`)
+                    history.push(`${url}/dimmer/${props.entity_id}`)
                 }}
             >
                 <BrightnessIcon className={styles.icon} />

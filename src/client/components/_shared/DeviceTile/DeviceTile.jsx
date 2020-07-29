@@ -13,10 +13,10 @@ const DeviceTile = (props) => {
     const getDeviceTileClassName = () => {
         return classNames({
             [styles.deviceTile]: true,
-            [styles.on]: props.state == Constants.DeviceStates.ON,
-            [styles.off]: props.state == Constants.DeviceStates.OFF,
-            [styles.unknown]: props.state == Constants.DeviceStates.UNKNOWN,
-            [styles.warn]: props.state == Constants.DeviceStates.UNLOCKED
+            [styles.on]: props.state === Constants.DeviceStates.ON,
+            [styles.off]: props.state === Constants.DeviceStates.OFF,
+            [styles.unknown]: props.state === Constants.DeviceStates.UNKNOWN,
+            [styles.warn]: props.state === Constants.DeviceStates.UNLOCKED
         })
     }
 

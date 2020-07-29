@@ -28,7 +28,10 @@ const SubIndicators = (props) => {
                     : 0
 
             return (
-                <BrightnessSubIndicator brightness={brightnessValue} {...props} />
+                <BrightnessSubIndicator
+                    brightness={brightnessValue}
+                    entity_id={props.entity_id}
+                />
             )
         } else {
             return null
@@ -55,7 +58,8 @@ const SubIndicators = (props) => {
 }
 
 SubIndicators.propTypes = {
-    attributes: PropTypes.object.isRequired
+    attributes: PropTypes.object.isRequired,
+    entity_id: PropTypes.string.isRequired
 }
 
 export default SubIndicators

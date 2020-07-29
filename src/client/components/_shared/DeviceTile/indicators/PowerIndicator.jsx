@@ -3,12 +3,15 @@ import QuestionMarkIcon from '@carbon/icons-react/es/help/32'
 import SunIcon from '@carbon/icons-react/es/light/32'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useSubstate } from 'react-substate'
 
-import DeviceDb from '~/client/modules/DeviceDb'
+import actions from '~/client/modules/substate/actions'
+import substates from '~/client/modules/substate/substates'
 
 import styles from './Indicator.m.scss'
 
 const PowerIndicator = (props) => {
+    const [, dispatch] = useSubstate(substates.deviceDb)
     const getIcon = () => {
         switch (props.state) {
         case 'on':
@@ -25,9 +28,11 @@ const PowerIndicator = (props) => {
             <button
                 aria-label={'toggle ' + props.friendly_name + ' state'}
                 className={styles.button}
-                onClick={() => DeviceDb.actions.toggleDevicePowerState({
-                    entity_id: props.entity_id
-                })}
+                onClick={() => {
+                    dispatch(actions.deviceDb.toggleDevicePowerState, {
+                        entity_id: props.entity_id
+                    })
+                }}
             >
                 {getIcon()}
             </button>
