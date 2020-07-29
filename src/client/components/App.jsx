@@ -23,7 +23,6 @@ const Routes = () => {
 }
 
 const App = () => {
-    // create reducer for DeviceDb.Context
     const [pageTitle] = useSubstate(substates.pageTitle)
     const [, dispatch] = useSubstate(substates.deviceDb)
 
