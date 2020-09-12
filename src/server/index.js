@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const proxy = require('http-proxy-middleware')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 const proxyConfig = require('../../config/proxy.config.js')
 
 // Create the express server
@@ -11,7 +11,7 @@ const indexFile = path.join(__dirname, '..', '..', 'dist', 'index.html')
 
 // Set up all proxies from the proxyConfig file
 for (const x in proxyConfig) {
-    server.use(proxy(x, proxyConfig[x]))
+    server.use(createProxyMiddleware(x, proxyConfig[x]))
 }
 
 // Serve the index file for BrowserRouter routes
