@@ -1,21 +1,25 @@
-import axiosFactory from 'axios'
+import axios from 'axios'
 
 import Constants from './Constants'
 
-const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI0MzY3MTU4NmJlYzA0YTJhYjkyNjI' +
-    '4MDA3Y2E1M2RlYSIsImlhdCI6MTU1NzE4OTk2NywiZXhwIjoxODcyNTQ5OTY3fQ.6L7aj4-jqIIA6W6jEf3IVsEjm3d1' +
-    'XOHek4dpAIfb3qs'
-
-const axios = axiosFactory.create({
-    headers: {
-        Authorization: 'Bearer ' + authToken
-    }
-})
-
+let authToken = null
 let ws = null
 let wsReconnectTimeout = null
 
 let lastStates = []
+
+const getAuthToken = () => {
+    return new Promise((resolve, reject) => {
+        if (authToken === null) {
+            axios.get('/token').then((response) => {
+                authToken = response.data.token
+                resolve(authToken)
+            })
+        } else {
+            resolve(authToken)
+        }
+    })
+}
 
 /**
  * Lists entities of particular types from the last server data. The types are values from the
@@ -106,10 +110,12 @@ const openWebsocket = ({ onOpen = null, onEvent = null }) => {
         const message = JSON.parse(messageEvent.data)
 
         if (message.type === 'auth_required') {
-            ws.send(JSON.stringify({
-                type: 'auth',
-                access_token: authToken
-            }))
+            getAuthToken().then((token) => {
+                ws.send(JSON.stringify({
+                    type: 'auth',
+                    access_token: token
+                }))
+            })
         }
 
         if (message.type === 'auth_ok') {
