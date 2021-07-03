@@ -6,7 +6,7 @@ import Constants from '~/client/modules/Constants'
 import BatterySubIndicator from './BatteryLevelSubIndicator'
 import BrightnessSubIndicator from './BrightnessSubIndicator'
 
-const BRIGHTNESS_FEATURE = 0b01
+const BRIGHTNESS_FEATURE = 0b100000
 
 const SubIndicators = (props) => {
     const getBatterySubIndicator = () => {

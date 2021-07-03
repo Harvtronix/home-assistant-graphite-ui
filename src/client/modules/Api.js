@@ -202,9 +202,39 @@ const toggleDevice = (entityId) => {
 }
 
 /**
+ * Turns a device off.
+ *
+ * @param {*} entityId - The ID of the entity to turn off.
+ */
+const turnDeviceOff = (entityId) => {
+    const deviceDomain = entityId.split('.')[0]
+
+    if (Constants.ToggleableEntities.indexOf(deviceDomain) < 0) {
+        throw new Error('Attempted to turn off a non-toggleable device of type ' + deviceDomain)
+    }
+
+    // Build the data to be sent along with the request
+    const data = {
+        entity_id: entityId
+    }
+
+    return new Promise((resolve, reject) => {
+        // Execute the command and resolve (or reject the promise)
+        axios.post('/api/services/' + deviceDomain + '/turn_off', data).then(
+            (response) => {
+                resolve(response)
+            },
+            (error) => {
+                reject(error)
+            }
+        )
+    })
+}
+
+/**
  * Turns a device on, optionally setting its brightness as well.
  *
- * @param {*} entityId - The ID of the entity to toggle.
+ * @param {*} entityId - The ID of the entity to turn on.
  * @param {*} brightness - (optional) The brightness level to set for the entity.
  */
 const turnDeviceOn = (entityId, brightness = 0) => {
@@ -263,6 +293,7 @@ export default {
     openWebsocket,
     refreshStates,
     toggleDevice,
+    turnDeviceOff,
     turnDeviceOn,
     unlockDevice
 }

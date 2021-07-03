@@ -1,4 +1,5 @@
 const DeviceStates = {
+    LOADING: 'loading',
     LOCKED: 'locked',
     OFF: 'off',
     ON: 'on',
