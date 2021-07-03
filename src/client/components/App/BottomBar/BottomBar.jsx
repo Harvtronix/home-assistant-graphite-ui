@@ -7,13 +7,11 @@ import styles from './BottomBar.m.scss'
 const BottomBar = () => {
     return (
         <div className={styles.bottomBar}>
-            <div>1</div>
             <div>
                 <Link to="/">
                     <HomeIcon />
                 </Link>
             </div>
-            <div>3</div>
         </div>
     )
 }
