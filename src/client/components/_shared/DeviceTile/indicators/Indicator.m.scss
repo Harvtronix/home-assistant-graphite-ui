@@ -17,5 +17,16 @@
             width: 3rem;
             height: 3rem;
         }
+
+        .loadingSpinner {
+            display: inline;
+
+            div {
+                div {
+                    width: 3rem;
+                    height: 3rem;
+                }
+            }
+        }
     }
 }
