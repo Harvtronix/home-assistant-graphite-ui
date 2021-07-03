@@ -74,6 +74,50 @@ server.post('/services/*/toggle', (req, res, next) => {
     toggleDeviceAndNotify(req.body.entity_id, res)
 })
 
+server.post('/services/*/turn_off', (req, res, next) => {
+    if (req.method !== 'POST') {
+        next()
+        return
+    }
+
+    // check if turn_off exists for entity domain
+    const pathDomainPart = req.path.split('/')[2]
+    const domainIndex = db.services.findIndex((ele) => (ele.domain === pathDomainPart))
+    if (!('turn_off' in db.services[domainIndex].services)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // check for entity_id property
+    if (!('entity_id' in req.body)) {
+        res.sendStatus(400)
+        return
+    }
+
+    // find the entity in the db states
+    const states = db.states
+    const index = states.findIndex((ele) => req.body.entity_id === ele.entity_id)
+    if (index < 0) {
+        res.sendStatus(404)
+        return
+    }
+    const entity = states[index]
+
+    console.log('    Got a request to turn off ' + req.body.entity_id)
+
+    // Make the modifications
+    const oldState = { ...entity }
+    entity.state = 'off'
+    const newState = { ...entity }
+
+    res.sendStatus(204)
+
+    if (websocket != null) {
+        console.log('    Sending websocket message that state changed')
+        websocket.send(JSON.stringify(wsMessages.createStateChangedMessage(oldState, newState)))
+    }
+})
+
 server.post('/services/*/turn_on', (req, res, next) => {
     if (req.method !== 'POST') {
         next()
@@ -206,5 +250,5 @@ server.ws('/websocket', (ws, req) => {
 server.use(router)
 
 server.listen(3000, () => {
-    console.log('\\{^_^}/ JSON Server is running.')
+    console.log('\\{^_^}/ JSON Server is running on port 3000.')
 })
