@@ -1,15 +1,14 @@
-import Substate from 'react-substate'
+import { createAction } from 'react-substate'
 
 import Api from '../Api'
 import Constants from '../Constants'
-import substates from './substates'
 
 const actions = {
-    updatePageTitle: Substate.createAction(substates.pageTitle, (draft, payload) => {
+    updatePageTitle: createAction((draft, payload) => {
         return payload
     }),
     deviceDb: {
-        setDeviceState: Substate.createAction(substates.deviceDb, (state, payload) => {
+        setDeviceState: createAction((state, payload) => {
             // Find the correct device index
             const index = state.findIndex((ele) => payload.entity_id === ele.entity_id)
 
@@ -18,11 +17,11 @@ const actions = {
             }
         }),
 
-        setDevices: Substate.createAction(substates.deviceDb, (_, payload) => {
+        setDevices: createAction((_, payload) => {
             return payload
         }),
 
-        toggleDeviceLockState: Substate.createAction(substates.deviceDb, (state, payload) => {
+        toggleDeviceLockState: createAction((state, payload) => {
             const index = state.findIndex((ele) => payload.entity_id === ele.entity_id)
             const currentLockState = state[index].state
 
@@ -38,7 +37,7 @@ const actions = {
             }
         }),
 
-        toggleDevicePowerState: Substate.createAction(substates.deviceDb, (state, payload) => {
+        toggleDevicePowerState: createAction((state, payload) => {
             const index = state.findIndex((ele) => payload.entity_id === ele.entity_id)
             const currentPowerState = state[index].state
 
@@ -54,7 +53,7 @@ const actions = {
             }
         }),
 
-        turnDeviceOn: Substate.createAction(substates.deviceDb, (_, payload) => {
+        turnDeviceOn: createAction((_, payload) => {
             Api.turnDeviceOn(
                 payload.entity_id,
                 'brightness' in payload ? payload.brightness : undefined

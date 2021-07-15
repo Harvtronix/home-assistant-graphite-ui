@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { Route, useParams, useRouteMatch } from 'react-router-dom'
-import { useSubstate } from 'react-substate'
+import { useDispatch } from 'react-substate'
 
 import Constants from '~/client/modules/Constants'
 import actions from '~/client/modules/substate/actions'
@@ -30,7 +30,7 @@ const Room = () => {
     const { path } = useRouteMatch()
     const { room } = useParams()
 
-    const [, dispatch] = useSubstate(substates.pageTitle)
+    const dispatch = useDispatch(substates.pageTitle)
 
     useEffect(() => {
         dispatch(actions.updatePageTitle, testRoomTitles[room] + Constants.PAGE_TITLE_SUFFIX)

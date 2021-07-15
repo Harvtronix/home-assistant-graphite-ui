@@ -17,11 +17,11 @@
     "ci-lint": "eslint --ext .js,.jsx --max-warnings 0 ."
   },
   "dependencies": {
-    "@carbon/icons": "^10.34.0",
-    "@carbon/icons-react": "^10.34.0",
+    "@carbon/icons": "^10.35.0",
+    "@carbon/icons-react": "^10.35.0",
     "axios": "^0.21.1",
-    "carbon-components": "^10.38.0",
-    "carbon-components-react": "^7.38.0",
+    "carbon-components": "^10.39.0",
+    "carbon-components-react": "^7.39.0",
     "carbon-icons": "^7.0.7",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -31,7 +31,7 @@
     "react-dom": "^16.14.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-substate": "^3.7.0"
+    "react-substate": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
