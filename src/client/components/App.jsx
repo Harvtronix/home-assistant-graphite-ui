@@ -2,7 +2,7 @@ import './App.scss'
 
 import React, { useEffect } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-import { usePatchEffect, useSubstate } from 'react-substate'
+import { useDispatch, usePatchEffect, useSubstate } from 'react-substate'
 
 import Api from '~/client/modules/Api'
 import actions from '~/client/modules/substate/actions'
@@ -24,7 +24,7 @@ const Routes = () => {
 
 const App = () => {
     const [pageTitle] = useSubstate(substates.pageTitle)
-    const [, dispatch] = useSubstate(substates.deviceDb)
+    const dispatch = useDispatch(substates.deviceDb)
 
     usePatchEffect((patches) => {
         console.log('Device DB updated')

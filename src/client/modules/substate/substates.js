@@ -1,8 +1,8 @@
-import Substate from 'react-substate'
+import { createSubstate } from 'react-substate'
 
 const substates = {
-    pageTitle: Substate.create(''),
-    deviceDb: Substate.create([])
+    pageTitle: createSubstate(''),
+    deviceDb: createSubstate([])
 }
 
 export default substates

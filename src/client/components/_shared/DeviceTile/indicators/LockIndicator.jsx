@@ -4,7 +4,7 @@ import UnlockedIcon from '@carbon/icons-react/es/unlocked/32'
 import { InlineLoading } from 'carbon-components-react'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useSubstate } from 'react-substate'
+import { useDispatch } from 'react-substate'
 
 import Constants from '~/client/modules/Constants'
 import actions from '~/client/modules/substate/actions'
@@ -13,7 +13,7 @@ import substates from '~/client/modules/substate/substates'
 import styles from './Indicator.m.scss'
 
 const LockIndicator = (props) => {
-    const [, dispatch] = useSubstate(substates.deviceDb)
+    const dispatch = useDispatch(substates.deviceDb)
 
     const getIcon = () => {
         switch (props.state) {
